@@ -100,6 +100,12 @@ extension AppThemeTypeExtension on AppThemeType {
 
 /// Manages the active theme and persists the choice
 class ThemeManager extends ChangeNotifier {
+  static ThemeManager? _instance;
+  static ThemeManager get instance {
+    _instance ??= ThemeManager._();
+    return _instance!;
+  }
+
   static const String _themeKey = 'app_theme_type';
 
   AppThemeType _currentType = AppThemeType.synthwave84;
@@ -109,9 +115,12 @@ class ThemeManager extends ChangeNotifier {
   AppThemeType get currentType => _currentType;
   ThemeData get currentTheme => _cachedTheme ?? _currentType.themeData;
 
-  ThemeManager() {
+  ThemeManager._() {
     _loadTheme();
   }
+
+  @pragma('vm:prefer-inline')
+  factory ThemeManager() => instance;
 
   Future<void> _loadTheme() async {
     _prefs = await SharedPreferences.getInstance();

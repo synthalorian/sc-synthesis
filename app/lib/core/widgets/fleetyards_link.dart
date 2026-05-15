@@ -7,8 +7,10 @@ Future<void> openFleetYards({String? path}) async {
       ? 'https://fleetyards.net$path'
       : 'https://fleetyards.net';
   final uri = Uri.parse(url);
-  if (await canLaunchUrl(uri)) {
+  try {
     await launchUrl(uri, mode: LaunchMode.externalApplication);
+  } catch (_) {
+    // Browser not available — silently fail
   }
 }
 
@@ -38,20 +40,14 @@ class FleetYardsLink extends StatelessWidget {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(
-                Icons.open_in_new,
-                size: 14,
-                color: theme.colorScheme.primary,
-              ),
+              Icon(Icons.open_in_new, size: 14, color: theme.colorScheme.primary),
               const SizedBox(width: 4),
               Text(
                 label,
                 style: theme.textTheme.labelSmall?.copyWith(
                   color: theme.colorScheme.primary,
                   decoration: TextDecoration.underline,
-                  decorationColor: theme.colorScheme.primary.withValues(
-                    alpha: 0.4,
-                  ),
+                  decorationColor: theme.colorScheme.primary.withValues(alpha: 0.4),
                 ),
               ),
             ],
@@ -85,8 +81,7 @@ class FleetYardsBanner extends StatelessWidget {
     super.key,
     this.path,
     this.title = 'FleetYards.net',
-    this.subtitle =
-        'Browse the complete Star Citizen ship database, compare stats, and plan your fleet.',
+    this.subtitle = 'Browse the complete Star Citizen ship database, compare stats, and plan your fleet.',
   });
 
   @override

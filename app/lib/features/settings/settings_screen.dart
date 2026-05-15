@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:sc_synthesis/core/data/rust_database_service.dart';
 import 'package:sc_synthesis/core/theme/app_theme.dart';
+import 'package:sc_synthesis/core/theme/widgets/theme_selector.dart';
 import 'package:sc_synthesis/core/widgets/buy_me_a_coffee.dart';
 import 'package:sc_synthesis/core/widgets/fleetyards_link.dart';
 import 'package:sc_synthesis/features/ships/ship_compare_screen.dart';
@@ -11,6 +12,20 @@ import 'package:sc_synthesis/features/ships/ship_compare_screen.dart';
 class SettingsScreen extends StatelessWidget {
   final VoidCallback? onTapTheme;
   const SettingsScreen({super.key, this.onTapTheme});
+
+  void _openThemeSelector(BuildContext context) {
+    Navigator.of(context).push<AppThemeType>(
+      MaterialPageRoute(
+        builder: (_) => ThemeSelectorScreen(
+          currentType: ThemeManager.instance.currentType,
+        ),
+      ),
+    ).then((result) {
+      if (result != null) {
+        ThemeManager.instance.setTheme(result);
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +39,7 @@ class SettingsScreen extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.palette_outlined),
-            onPressed: onTapTheme,
+            onPressed: () => _openThemeSelector(context),
             tooltip: 'Theme',
           ),
         ],
@@ -161,10 +176,10 @@ class SettingsScreen extends StatelessWidget {
                     onTap: () async {
                       final uri = Uri.parse(
                           'https://github.com/synthalorian/sc-synthesis');
-                      if (await canLaunchUrl(uri)) {
+                      try {
                         await launchUrl(uri,
                             mode: LaunchMode.externalApplication);
-                      }
+                      } catch (_) {}
                     },
                     contentPadding: EdgeInsets.zero,
                     visualDensity: VisualDensity.compact,
@@ -201,7 +216,7 @@ class SettingsScreen extends StatelessWidget {
               title: const Text('Change Theme'),
               subtitle: const Text('Pick your visual style'),
               trailing: const Icon(Icons.chevron_right),
-              onTap: onTapTheme,
+              onTap: () => _openThemeSelector(context),
             ),
           ),
           const SizedBox(height: 32),
