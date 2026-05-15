@@ -4,6 +4,7 @@ import 'package:sc_synthesis/core/data/rust_database_service.dart';
 import 'package:sc_synthesis/core/theme/app_theme.dart';
 import 'package:sc_synthesis/core/widgets/buy_me_a_coffee.dart';
 import 'package:sc_synthesis/core/widgets/fleetyards_link.dart';
+import 'package:sc_synthesis/features/ships/ship_compare_screen.dart';
 
 /// Settings / About screen — replaces the old Profile/Login tab.
 /// Shows app info, database stats, external links, and theme selector access.
@@ -175,7 +176,10 @@ class SettingsScreen extends StatelessWidget {
                     subtitle: const Text(
                         'Compare ships side by side with stat bars'),
                     trailing: const Icon(Icons.chevron_right),
-                    onTap: () {},
+                    onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute(
+                          builder: (_) => const ShipCompareScreen()),
+                    ),
                     contentPadding: EdgeInsets.zero,
                     visualDensity: VisualDensity.compact,
                   ),
