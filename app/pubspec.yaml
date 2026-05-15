@@ -17,9 +17,6 @@ dependencies:
   # Navigation
   go_router: ^14.8.1
 
-  # Networking
-  dio: ^5.7.0
-
   # Local storage
   shared_preferences: ^2.3.4
   path_provider: ^2.1.5
