@@ -7,8 +7,9 @@ import 'package:sc_synthesis/core/widgets/shimmer_loading.dart';
 /// Fleet screen — shows user's ships from their RSI account
 class FleetScreen extends StatefulWidget {
   final AuthManager authManager;
+  final VoidCallback? onTapTheme;
 
-  const FleetScreen({super.key, required this.authManager});
+  const FleetScreen({super.key, required this.authManager, this.onTapTheme});
 
   @override
   State<FleetScreen> createState() => _FleetScreenState();
@@ -73,6 +74,11 @@ class _FleetScreenState extends State<FleetScreen> {
         title: const Text('My Fleet'),
         centerTitle: true,
         actions: [
+          IconButton(
+            icon: const Icon(Icons.palette_outlined),
+            onPressed: widget.onTapTheme,
+            tooltip: 'Theme',
+          ),
           if (auth.isAuthenticated)
             IconButton(
               icon: const Icon(Icons.refresh),
