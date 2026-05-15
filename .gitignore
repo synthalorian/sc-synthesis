@@ -1,0 +1,145 @@
+internal/  Dart Tooling Daemon temp files
+
+# =============================================================================
+# Flutter / Dart
+# =============================================================================
+
+## Dart build & tooling
+.dart_tool/
+.packages
+.pub/
+.pub-cache/
+build/
+coverage/
+*.js_
+*.js.deps
+*.js.map
+
+## Flutter
+.flutter-plugins
+.flutter-plugins-dependencies
+flutter_export_environment.sh
+
+## Generated files
+**/generated_plugin_registrant.dart
+**/generated_plugin_registrant.h
+**/generated_plugin_registrant.cc
+**/generated_plugin_registrant.m
+
+## Android (Flutter)
+app/android/app/debug/
+app/android/app/profile/
+app/android/app/release/
+app/android/.gradle/
+app/android/local.properties
+app/android/key.properties
+app/android/app/*.keystore
+app/android/app/*.jks
+
+## iOS (Flutter)
+app/ios/Pods/
+app/ios/.symlinks/
+app/ios/Flutter/Flutter.framework
+app/ios/Flutter/Flutter.podspec
+app/ios/Flutter/.last_build_id
+app/ios/Runner/GeneratedPluginRegistrant.*
+
+## Linux (Flutter)
+app/linux/flutter/ephemeral/
+
+## Web (Flutter)
+app/web/fonts/
+
+## Symbolication / obfuscation
+app/*.symbols
+app/*.map.json
+
+# =============================================================================
+# Rust — app bridge crate
+# =============================================================================
+app/rust/target/
+
+# =============================================================================
+# Rust — server (standalone binary)
+# =============================================================================
+server/target/
+server/sc_synthesis.db
+
+# =============================================================================
+# Rust — cargokit / rust_builder (auto-generated build harness)
+# =============================================================================
+app/rust_builder/**/build_tool/.dart_tool/
+app/rust_builder/**/build_tool/build/
+
+# =============================================================================
+# Build artifacts (generic)
+# =============================================================================
+*.apk
+*.aab
+*.app
+*.dmg
+*.exe
+*.msi
+*.deb
+*.rpm
+*.snap
+*.so
+*.dylib
+*.dll
+*.rlib
+*.rmeta
+
+# =============================================================================
+# IDE & editor
+# =============================================================================
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+.brew/
+.mercury/
+*.swp
+*.swo
+*~
+*.orig
+
+# =============================================================================
+# OS files
+# =============================================================================
+.DS_Store
+.DS_Store?
+.AppleDouble
+.LSOverride
+Thumbs.db
+desktop.ini
+ehthumbs.db
+*.lnk
+
+# =============================================================================
+# Credentials & environment
+# =============================================================================
+.env
+.env.*
+!.env.example
+*.local
+*.pem
+*.key
+secrets/
+credentials/
+
+# =============================================================================
+# Logs
+# =============================================================================
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# =============================================================================
+# Python / misc
+# =============================================================================
+__pycache__/
+*.pyc
+*.pyo
+*.class

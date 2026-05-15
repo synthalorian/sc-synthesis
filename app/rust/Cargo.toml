@@ -1,0 +1,27 @@
+[package]
+name = "sc_synthesis_bridge"
+version = "0.1.0"
+edition = "2021"
+description = "SC:Synthesis — Rust backend embedded in Flutter via flutter_rust_bridge"
+
+[lib]
+crate-type = ["cdylib", "staticlib"]
+
+[dependencies]
+flutter_rust_bridge = "=2.12.0"
+
+# Serialization
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+# Database
+rusqlite = { version = "0.32", features = ["bundled"] }
+
+# UUID generation
+uuid = { version = "1", features = ["v4"] }
+
+# Date/time
+chrono = "0.4"
+
+# Logging
+log = "0.4"
