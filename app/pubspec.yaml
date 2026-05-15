@@ -1,0 +1,61 @@
+name: sc_synthesis
+description: "SC:Synthesis — A Star Citizen companion app"
+publish_to: 'none'
+version: 0.1.0+1
+
+environment:
+  sdk: ^3.11.5
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # State management
+  flutter_riverpod: ^2.6.1
+  riverpod_annotation: ^2.6.1
+
+  # Navigation
+  go_router: ^14.8.1
+
+  # Networking
+  dio: ^5.7.0
+
+  # Local storage
+  shared_preferences: ^2.3.4
+  path_provider: ^2.1.5
+
+  # Charts & visualizations
+  fl_chart: ^0.70.2
+
+  # Formatting & utilities
+  intl: ^0.20.2
+  collection: ^1.19.1
+  equatable: ^2.0.7
+  freezed_annotation: ^2.4.4
+  json_annotation: ^4.9.0
+
+  # UI
+  cupertino_icons: ^1.0.8
+  flutter_animate: ^4.5.2
+
+  # External links
+  url_launcher: ^6.3.1
+  flutter_rust_bridge: 2.12.0
+  rust_lib_sc_synthesis:
+    path: rust_builder
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+  build_runner: ^2.4.14
+  freezed: ^2.5.7
+  json_serializable: ^6.9.4
+  riverpod_generator: ^2.6.3
+  integration_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/data/ships.json

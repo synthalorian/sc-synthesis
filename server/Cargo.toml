@@ -1,0 +1,47 @@
+[package]
+name = "sc-synthesis-server"
+version = "0.1.0"
+edition = "2021"
+description = "SC:Synthesis — Star Citizen companion app backend"
+
+[dependencies]
+# Web framework
+axum = { version = "0.8", features = ["macros"] }
+tokio = { version = "1", features = ["full"] }
+tower = "0.5"
+tower-http = { version = "0.6", features = ["cors", "trace"] }
+
+# Serialization
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+# Async stream processing (for chromiumoxide handler)
+futures = "0.3"
+
+# HTTP client (scraping)
+reqwest = { version = "0.12", features = ["cookies", "json"] }
+
+# Headless browser automation (for Cloudflare Turnstile)
+chromiumoxide = { version = "0.8", features = ["tokio-runtime"] }
+
+# HTML parsing
+scraper = "0.22"
+
+# Database
+sqlx = { version = "0.8", features = ["runtime-tokio", "sqlite"] }
+
+# Utilities
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+toml = "0.8"
+anyhow = "1"
+thiserror = "2"
+chrono = { version = "0.4", features = ["serde"] }
+uuid = { version = "1", features = ["v4"] }
+dotenvy = "0.15"
+clap = { version = "4", features = ["derive"] }
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1

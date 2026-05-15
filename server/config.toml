@@ -1,0 +1,12 @@
+[server]
+host = "0.0.0.0"
+port = 3001
+
+[database]
+url = "sqlite:sc_synthesis.db?mode=rwc"
+
+[rsi]
+base_url = "https://robertsspaceindustries.com"
+spectrum_url = "https://spectrum.chat"
+timeout_secs = 30
+user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36"
