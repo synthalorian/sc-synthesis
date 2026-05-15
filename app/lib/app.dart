@@ -78,9 +78,17 @@ class ScSynthesisAppState extends State<ScSynthesisApp> {
             key: ValueKey('tab-$_currentTab'),
             index: _currentTab,
             children: [
-              FleetScreen(authManager: _authManager),
-              const ShipListScreen(),
-              AuthScreen(authManager: _authManager),
+              FleetScreen(
+                authManager: _authManager,
+                onTapTheme: _openThemeSelector,
+              ),
+              ShipListScreen(
+                onTapTheme: _openThemeSelector,
+              ),
+              AuthScreen(
+                authManager: _authManager,
+                onTapTheme: _openThemeSelector,
+              ),
             ],
           ),
         ),
@@ -108,11 +116,6 @@ class ScSynthesisAppState extends State<ScSynthesisApp> {
               label: 'Profile',
             ),
           ],
-        ),
-        floatingActionButton: FloatingActionButton(
-          mini: true,
-          onPressed: _openThemeSelector,
-          child: const Icon(Icons.palette_outlined),
         ),
       ),
     );

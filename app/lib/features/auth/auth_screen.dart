@@ -5,8 +5,9 @@ import 'package:sc_synthesis/core/api/api_client.dart';
 /// Auth screen — RSI login via Rust server proxy
 class AuthScreen extends StatefulWidget {
   final AuthManager authManager;
+  final VoidCallback? onTapTheme;
 
-  const AuthScreen({super.key, required this.authManager});
+  const AuthScreen({super.key, required this.authManager, this.onTapTheme});
 
   @override
   State<AuthScreen> createState() => _AuthScreenState();
@@ -80,7 +81,17 @@ class _AuthScreenState extends State<AuthScreen> {
     final auth = widget.authManager;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('SC:Synthesis'), centerTitle: true),
+      appBar: AppBar(
+        title: const Text('SC:Synthesis'),
+        centerTitle: true,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.palette_outlined),
+            onPressed: widget.onTapTheme,
+            tooltip: 'Theme',
+          ),
+        ],
+      ),
       body: Center(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 24),
