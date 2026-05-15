@@ -18,7 +18,7 @@ class SettingsScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('SC:Synthesis'),
+        title: const Text('SC Synthesis'),
         centerTitle: true,
         actions: [
           IconButton(
@@ -55,14 +55,14 @@ class SettingsScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 16),
                 Text(
-                  'SC:Synthesis',
+                  'SC Synthesis',
                   style: theme.textTheme.headlineSmall?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  'v0.1.0',
+                  'v0.2.0',
                   style: theme.textTheme.bodySmall?.copyWith(
                     color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
                   ),
@@ -165,6 +165,17 @@ class SettingsScreen extends StatelessWidget {
                             mode: LaunchMode.externalApplication);
                       }
                     },
+                    contentPadding: EdgeInsets.zero,
+                    visualDensity: VisualDensity.compact,
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.compare_arrows,
+                        color: theme.colorScheme.primary),
+                    title: const Text('Ship Comparison'),
+                    subtitle: const Text(
+                        'Compare ships side by side with stat bars'),
+                    trailing: const Icon(Icons.chevron_right),
+                    onTap: () {},
                     contentPadding: EdgeInsets.zero,
                     visualDensity: VisualDensity.compact,
                   ),
