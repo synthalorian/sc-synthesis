@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:sc_synthesis/core/api/auth_manager.dart';
 import 'package:sc_synthesis/core/theme/app_theme.dart';
 import 'package:sc_synthesis/core/theme/widgets/theme_selector.dart';
 import 'package:sc_synthesis/core/data/rust_database_service.dart';
-import 'package:sc_synthesis/features/auth/auth_screen.dart';
 import 'package:sc_synthesis/features/fleet/fleet_screen.dart';
+import 'package:sc_synthesis/features/settings/settings_screen.dart';
 import 'package:sc_synthesis/features/ships/ship_list_screen.dart';
 
 class ScSynthesisApp extends StatefulWidget {
@@ -16,14 +15,12 @@ class ScSynthesisApp extends StatefulWidget {
 
 class ScSynthesisAppState extends State<ScSynthesisApp> {
   late final ThemeManager _themeManager;
-  late final AuthManager _authManager;
   int _currentTab = 0;
 
   @override
   void initState() {
     super.initState();
     _themeManager = ThemeManager()..addListener(_onThemeChanged);
-    _authManager = AuthManager()..addListener(_onAuthChanged);
     // Initialize Rust backend — opens SQLite DB, seeds from bundled data
     RustDatabaseService().init();
   }
@@ -31,14 +28,11 @@ class ScSynthesisAppState extends State<ScSynthesisApp> {
   @override
   void dispose() {
     _themeManager.removeListener(_onThemeChanged);
-    _authManager.removeListener(_onAuthChanged);
-    _authManager.dispose();
     _themeManager.dispose();
     super.dispose();
   }
 
   void _onThemeChanged() => setState(() {});
-  void _onAuthChanged() => setState(() {});
 
   void _openThemeSelector() async {
     final result = await Navigator.of(context).push<AppThemeType>(
@@ -51,6 +45,10 @@ class ScSynthesisAppState extends State<ScSynthesisApp> {
     if (result != null && mounted) {
       _themeManager.setTheme(result);
     }
+  }
+
+  void _switchToTab(int index) {
+    setState(() => _currentTab = index);
   }
 
   @override
@@ -79,14 +77,13 @@ class ScSynthesisAppState extends State<ScSynthesisApp> {
             index: _currentTab,
             children: [
               FleetScreen(
-                authManager: _authManager,
                 onTapTheme: _openThemeSelector,
+                onSwitchToShipsTab: () => _switchToTab(1),
               ),
               ShipListScreen(
                 onTapTheme: _openThemeSelector,
               ),
-              AuthScreen(
-                authManager: _authManager,
+              SettingsScreen(
                 onTapTheme: _openThemeSelector,
               ),
             ],
@@ -111,9 +108,9 @@ class ScSynthesisAppState extends State<ScSynthesisApp> {
               label: 'Ships',
             ),
             NavigationDestination(
-              icon: Icon(Icons.person_outline),
-              selectedIcon: Icon(Icons.person),
-              label: 'Profile',
+              icon: Icon(Icons.settings_outlined),
+              selectedIcon: Icon(Icons.settings),
+              label: 'Settings',
             ),
           ],
         ),

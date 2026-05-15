@@ -1,73 +1,125 @@
 import 'package:flutter/material.dart';
-import 'package:sc_synthesis/core/api/auth_manager.dart';
-import 'package:sc_synthesis/core/api/api_client.dart';
-import 'package:sc_synthesis/core/widgets/fleetyards_link.dart';
+import 'package:sc_synthesis/core/data/rust_database_service.dart';
+import 'package:sc_synthesis/core/data/user_ship_data.dart';
 import 'package:sc_synthesis/core/widgets/shimmer_loading.dart';
+import 'package:sc_synthesis/src/rust/api/model.dart';
 
-/// Fleet screen — shows user's ships from their RSI account
+/// Offline-local fleet manager.
+/// Loads ships from the bundled SQLite database via RustDatabaseService,
+/// overlays UserShipData for owned/wishlist tracking.
 class FleetScreen extends StatefulWidget {
-  final AuthManager authManager;
   final VoidCallback? onTapTheme;
+  final VoidCallback? onSwitchToShipsTab;
 
-  const FleetScreen({super.key, required this.authManager, this.onTapTheme});
+  const FleetScreen({
+    super.key,
+    this.onTapTheme,
+    this.onSwitchToShipsTab,
+  });
 
   @override
-  State<FleetScreen> createState() => _FleetScreenState();
+  State<FleetScreen> createState() => FleetScreenState();
 }
 
-class _FleetScreenState extends State<FleetScreen> {
-  List<FleetShip> _ships = [];
-  bool _loading = false;
+class FleetScreenState extends State<FleetScreen>
+    with SingleTickerProviderStateMixin {
+  final _rustDb = RustDatabaseService();
+  final _userData = UserShipData();
+
+  late TabController _tabController;
+
+  List<Ship> _allShips = [];
+  List<Ship> _ownedShips = [];
+  List<Ship> _wishlistShips = [];
+  bool _loading = true;
+  String? _error;
 
   @override
   void initState() {
     super.initState();
-    widget.authManager.addListener(_onAuthChanged);
-    if (widget.authManager.isAuthenticated) {
-      _loadFleet();
-    }
+    _tabController = TabController(length: 2, vsync: this);
+    _userData.addListener(_onUserDataChanged);
+    _loadData();
   }
 
   @override
   void dispose() {
-    widget.authManager.removeListener(_onAuthChanged);
+    _userData.removeListener(_onUserDataChanged);
+    _tabController.dispose();
     super.dispose();
   }
 
-  void _onAuthChanged() {
+  void _onUserDataChanged() {
     if (mounted) {
-      setState(() {});
-      if (widget.authManager.isAuthenticated) {
-        _loadFleet();
-      } else {
-        _ships = [];
+      _reindexShips();
+    }
+  }
+
+  /// Filter all ships into owned and wishlist sets based on UserShipData.
+  void _reindexShips() {
+    final ownedIds = _userData.ownedIds;
+    final wishlistIds = _userData.wishlistIds;
+    setState(() {
+      _ownedShips =
+          _allShips.where((s) => ownedIds.contains(s.id)).toList();
+      _wishlistShips =
+          _allShips.where((s) => wishlistIds.contains(s.id)).toList();
+    });
+  }
+
+  Future<void> _loadData() async {
+    if (!_rustDb.isInitialized) {
+      try {
+        await _rustDb.init();
+      } catch (e) {
+        if (mounted) {
+          setState(() {
+            _error = 'Failed to initialize database: $e';
+            _loading = false;
+          });
+        }
+        return;
+      }
+    }
+
+    await _userData.load();
+
+    try {
+      final ships = await _rustDb.getAllShips();
+      if (mounted) {
+        setState(() {
+          _allShips = ships;
+          _loading = false;
+        });
+        _reindexShips();
+      }
+    } catch (e) {
+      if (mounted) {
+        setState(() {
+          _error = 'Failed to load ships: $e';
+          _loading = false;
+        });
       }
     }
   }
 
-  Future<void> _loadFleet() async {
-    setState(() => _loading = true);
-    final ships = await ApiClient().getFleet();
-    if (mounted) {
-      setState(() {
-        _ships = ships;
-        _loading = false;
-      });
+  /// Compute total fleet value (sum of pledge prices for owned ships).
+  double get _fleetValue {
+    double total = 0;
+    for (final ship in _ownedShips) {
+      total += ship.pledgePrice;
     }
+    return total;
   }
 
-  /// Convert a ship name to a FleetYards slug
-  String _shipToFleetYardsSlug(FleetShip ship) {
-    return ship.name
-        .toLowerCase()
-        .replaceAll(RegExp(r"[^\w\s-]"), '')
-        .replaceAll(RegExp(r'\s+'), '-');
+  /// Unique manufacturers among owned ships.
+  Set<String> get _ownedManufacturers {
+    return _ownedShips.map((s) => s.manufacturer).toSet();
   }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final auth = widget.authManager;
 
     return Scaffold(
       appBar: AppBar(
@@ -79,79 +131,22 @@ class _FleetScreenState extends State<FleetScreen> {
             onPressed: widget.onTapTheme,
             tooltip: 'Theme',
           ),
-          if (auth.isAuthenticated)
-            IconButton(
-              icon: const Icon(Icons.refresh),
-              onPressed: _loading ? null : _loadFleet,
-              tooltip: 'Refresh fleet',
-            ),
         ],
+        bottom: _loading
+            ? null
+            : TabBar(
+                controller: _tabController,
+                tabs: [
+                  Tab(text: 'My Fleet (${_ownedShips.length})'),
+                  Tab(text: 'Wishlist (${_wishlistShips.length})'),
+                ],
+              ),
       ),
-      body: auth.isAuthenticated
-          ? _buildFleetContent(theme)
-          : _buildSignInPrompt(theme),
+      body: _buildBody(theme),
     );
   }
 
-  Widget _buildSignInPrompt(ThemeData theme) {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(32),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              width: 88,
-              height: 88,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: theme.colorScheme.primary.withValues(alpha: 0.08),
-                border: Border.all(
-                  color: theme.colorScheme.primary.withValues(alpha: 0.2),
-                  width: 1.5,
-                ),
-              ),
-              child: Icon(
-                Icons.rocket_launch_outlined,
-                size: 44,
-                color: theme.colorScheme.primary.withValues(alpha: 0.6),
-              ),
-            ),
-            const SizedBox(height: 24),
-            Text(
-              'Your Fleet',
-              style: theme.textTheme.headlineSmall,
-            ),
-            const SizedBox(height: 12),
-            Text(
-              'Sign in with your RSI account to see your ships,\npledges, and fleet value.',
-              textAlign: TextAlign.center,
-              style: theme.textTheme.bodyMedium?.copyWith(
-                color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
-                height: 1.5,
-              ),
-            ),
-            const SizedBox(height: 24),
-            FilledButton.tonalIcon(
-              onPressed: () {
-                // Switch to profile tab — parent manages tabs
-              },
-              icon: const Icon(Icons.person),
-              label: const Text('Sign in on Profile tab'),
-            ),
-            const SizedBox(height: 32),
-            FleetYardsBanner(
-              title: 'FleetYards.net',
-              subtitle:
-                  'Track your fleet, compare ships, and plan your next pledge.',
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildFleetContent(ThemeData theme) {
+  Widget _buildBody(ThemeData theme) {
     if (_loading) {
       return ShimmerLoading(
         itemCount: 6,
@@ -160,126 +155,184 @@ class _FleetScreenState extends State<FleetScreen> {
       );
     }
 
-    if (_ships.isEmpty) {
+    if (_error != null) {
       return Center(
         child: Padding(
           padding: const EdgeInsets.all(32),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
-                width: 80,
-                height: 80,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: theme.colorScheme.primary.withValues(alpha: 0.06),
-                  border: Border.all(
-                    color: theme.colorScheme.primary.withValues(alpha: 0.15),
-                    width: 1,
-                  ),
-                ),
-                child: Icon(
-                  Icons.inbox_outlined,
-                  size: 40,
-                  color: theme.colorScheme.primary.withValues(alpha: 0.4),
-                ),
-              ),
-              const SizedBox(height: 20),
-              Text(
-                'No ships found',
-                style: theme.textTheme.titleMedium,
-              ),
-              const SizedBox(height: 8),
-              Text(
-                'Your fleet will appear here after sync.\nPull down to refresh.',
-                textAlign: TextAlign.center,
-                style: theme.textTheme.bodySmall?.copyWith(
-                  color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
-                ),
-              ),
-              const SizedBox(height: 24),
-              FilledButton.tonalIcon(
-                onPressed: _loadFleet,
-                icon: const Icon(Icons.refresh),
-                label: const Text('Refresh'),
-              ),
+              Icon(Icons.error_outline, size: 48,
+                  color: theme.colorScheme.error),
               const SizedBox(height: 16),
-              FleetYardsLink(label: 'Browse all ships on FleetYards'),
+              Text(_error!, textAlign: TextAlign.center),
+              const SizedBox(height: 16),
+              FilledButton.tonalIcon(
+                onPressed: () {
+                  setState(() => _loading = true);
+                  _error = null;
+                  _loadData();
+                },
+                icon: const Icon(Icons.refresh),
+                label: const Text('Retry'),
+              ),
             ],
           ),
         ),
       );
     }
 
-    return RefreshIndicator(
-      onRefresh: _loadFleet,
-      child: ListView.builder(
-        padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
-        itemCount: _ships.length + 1, // +1 for summary header
-        itemBuilder: (context, index) {
-          if (index == 0) {
-            return _buildFleetHeader(theme);
-          }
-          final ship = _ships[index - 1];
-          return _buildShipCard(theme, ship);
-        },
-      ),
+    return Column(
+      children: [
+        // Stats summary bar
+        _buildStatsBar(theme),
+        // Tab content
+        Expanded(
+          child: TabBarView(
+            controller: _tabController,
+            children: [
+              _buildFleetTab(theme, isWishlist: false),
+              _buildFleetTab(theme, isWishlist: true),
+            ],
+          ),
+        ),
+      ],
     );
   }
 
-  Widget _buildFleetHeader(ThemeData theme) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+  Widget _buildStatsBar(ThemeData theme) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      decoration: BoxDecoration(
+        color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
+        border: Border(
+          bottom: BorderSide(
+            color: theme.colorScheme.outlineVariant.withValues(alpha: 0.3),
+          ),
+        ),
+      ),
+      child: Row(
         children: [
-          Row(
-            children: [
-              Icon(
-                Icons.rocket_launch,
-                size: 20,
+          _statChip(theme, Icons.rocket_launch_outlined,
+              '${_ownedShips.length} owned'),
+          const SizedBox(width: 12),
+          _statChip(theme, Icons.favorite_outline,
+              '${_wishlistShips.length} wanted'),
+          const SizedBox(width: 12),
+          _statChip(theme, Icons.business,
+              '${_ownedManufacturers.length} manufacturers'),
+          const Spacer(),
+          if (_fleetValue > 0)
+            Text(
+              'US\$${_fleetValue.toStringAsFixed(0)}',
+              style: theme.textTheme.labelLarge?.copyWith(
+                fontWeight: FontWeight.w700,
                 color: theme.colorScheme.primary,
               ),
-              const SizedBox(width: 8),
-              Text('Your Fleet', style: theme.textTheme.titleLarge),
-              const Spacer(),
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 6,
-                ),
-                decoration: BoxDecoration(
-                  color: theme.colorScheme.primary.withValues(alpha: 0.15),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Text(
-                  '${_ships.length} ships',
-                  style: theme.textTheme.labelMedium?.copyWith(
-                    color: theme.colorScheme.primary,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 4),
-          Text(
-            'Synced with RSI account',
-            style: theme.textTheme.bodySmall?.copyWith(
-              color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
             ),
-          ),
-          const SizedBox(height: 12),
-          FleetYardsLink(
-            label: 'Manage your fleet on FleetYards.net',
-            compact: true,
-          ),
         ],
       ),
     );
   }
 
-  Widget _buildShipCard(ThemeData theme, FleetShip ship) {
-    final slug = _shipToFleetYardsSlug(ship);
+  Widget _statChip(ThemeData theme, IconData icon, String label) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Icon(icon, size: 14, color: theme.colorScheme.primary),
+        const SizedBox(width: 4),
+        Text(
+          label,
+          style: theme.textTheme.labelSmall?.copyWith(
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.8),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildFleetTab(ThemeData theme, {required bool isWishlist}) {
+    final ships = isWishlist ? _wishlistShips : _ownedShips;
+
+    if (ships.isEmpty) {
+      return _buildEmptyState(theme, isWishlist: isWishlist);
+    }
+
+    return RefreshIndicator(
+      onRefresh: _loadData,
+      child: ListView.builder(
+        padding: const EdgeInsets.fromLTRB(16, 8, 16, 80),
+        itemCount: ships.length,
+        itemBuilder: (context, index) {
+          final ship = ships[index];
+          return _buildShipCard(theme, ship, isWishlist: isWishlist);
+        },
+      ),
+    );
+  }
+
+  Widget _buildEmptyState(ThemeData theme, {required bool isWishlist}) {
+    final icon = isWishlist ? Icons.favorite_outline : Icons.rocket_launch_outlined;
+    final title = isWishlist ? 'Wishlist is empty' : 'No ships in your fleet yet';
+    final subtitle = isWishlist
+        ? 'Browse the Ships tab and add ships to your wishlist.\nTap the heart icon on any ship to save it here.'
+        : 'Head to the Ships tab to find ships and add them\nto your fleet with the "Own" toggle.';
+
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(32),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              width: 80,
+              height: 80,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: theme.colorScheme.primary.withValues(alpha: 0.06),
+                border: Border.all(
+                  color: theme.colorScheme.primary.withValues(alpha: 0.15),
+                ),
+              ),
+              child: Icon(
+                icon,
+                size: 40,
+                color: theme.colorScheme.primary.withValues(alpha: 0.4),
+              ),
+            ),
+            const SizedBox(height: 20),
+            Text(
+              title,
+              style: theme.textTheme.titleMedium,
+            ),
+            const SizedBox(height: 8),
+            Text(
+              subtitle,
+              textAlign: TextAlign.center,
+              style: theme.textTheme.bodySmall?.copyWith(
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+                height: 1.5,
+              ),
+            ),
+            const SizedBox(height: 24),
+            FilledButton.tonalIcon(
+              onPressed: widget.onSwitchToShipsTab,
+              icon: const Icon(Icons.search),
+              label: const Text('Browse Ships'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildShipCard(ThemeData theme, Ship ship,
+      {required bool isWishlist}) {
+    final note = _userData.getNote(ship.id);
+    final priceLabel = ship.pledgePrice > 0
+        ? 'US\$ ${ship.pledgePrice.toStringAsFixed(0)}'
+        : '';
 
     return Card(
       margin: const EdgeInsets.only(bottom: 8),
@@ -291,6 +344,7 @@ class _FleetScreenState extends State<FleetScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
         child: Row(
           children: [
+            // Ship icon
             Container(
               width: 44,
               height: 44,
@@ -305,6 +359,7 @@ class _FleetScreenState extends State<FleetScreen> {
               ),
             ),
             const SizedBox(width: 14),
+            // Name + manufacturer + optional note
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -322,30 +377,48 @@ class _FleetScreenState extends State<FleetScreen> {
                       color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
                     ),
                   ),
+                  if (note != null && note.isNotEmpty) ...[
+                    const SizedBox(height: 2),
+                    Text(
+                      note,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: theme.textTheme.labelSmall?.copyWith(
+                        color: theme.colorScheme.primary.withValues(alpha: 0.7),
+                        fontStyle: FontStyle.italic,
+                      ),
+                    ),
+                  ],
                 ],
               ),
             ),
-            Chip(
-              label: Text(
-                ship.size,
-                style: theme.textTheme.labelSmall?.copyWith(fontSize: 10),
-              ),
-              visualDensity: VisualDensity.compact,
-              materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-              padding: EdgeInsets.zero,
-            ),
-            const SizedBox(width: 4),
-            InkWell(
-              onTap: () => openFleetYards(path: '/ships/$slug'),
-              borderRadius: BorderRadius.circular(8),
-              child: Padding(
-                padding: const EdgeInsets.all(8),
-                child: Icon(
-                  Icons.open_in_new,
-                  size: 16,
-                  color: theme.colorScheme.primary.withValues(alpha: 0.7),
+            // Price tag (if available)
+            if (priceLabel.isNotEmpty && !isWishlist) ...[
+              Text(
+                priceLabel,
+                style: theme.textTheme.labelMedium?.copyWith(
+                  fontWeight: FontWeight.w600,
+                  color: theme.colorScheme.primary,
                 ),
               ),
+              const SizedBox(width: 8),
+            ],
+            // Remove button
+            IconButton(
+              onPressed: () {
+                if (isWishlist) {
+                  _userData.toggleWishlist(ship.id);
+                } else {
+                  _userData.toggleOwned(ship.id);
+                }
+              },
+              icon: Icon(
+                isWishlist ? Icons.delete_outline : Icons.remove_circle_outline,
+                size: 20,
+                color: theme.colorScheme.error,
+              ),
+              tooltip: isWishlist ? 'Remove from wishlist' : 'Remove from fleet',
+              visualDensity: VisualDensity.compact,
             ),
           ],
         ),
