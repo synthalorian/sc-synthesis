@@ -55,7 +55,7 @@ class ScSynthesisAppState extends State<ScSynthesisApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       key: const ValueKey('sc-synthesis'),
-      title: 'SC:Synthesis',
+      title: 'SC Synthesis',
       debugShowCheckedModeBanner: false,
       theme: _themeManager.currentTheme,
       home: Scaffold(
