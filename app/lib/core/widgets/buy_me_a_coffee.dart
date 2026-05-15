@@ -5,8 +5,10 @@ const String bmacUrl = 'https://buymeacoffee.com/synthalorian';
 
 void openBuyMeACoffee() async {
   final uri = Uri.parse(bmacUrl);
-  if (await canLaunchUrl(uri)) {
+  try {
     await launchUrl(uri, mode: LaunchMode.externalApplication);
+  } catch (_) {
+    // Browser not available — silently fail
   }
 }
 
@@ -17,7 +19,7 @@ class BuyMeACoffeeButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-
+    
     if (compact) {
       return InkWell(
         onTap: openBuyMeACoffee,
@@ -27,7 +29,7 @@ class BuyMeACoffeeButton extends StatelessWidget {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text('☕', style: const TextStyle(fontSize: 16)),
+              Text('☕', style: TextStyle(fontSize: 16)),
               const SizedBox(width: 6),
               Text(
                 'Buy me a coffee',
@@ -54,7 +56,7 @@ class BuyMeACoffeeButton extends StatelessWidget {
       ),
       child: Column(
         children: [
-          const Text('☕', style: TextStyle(fontSize: 40)),
+          Text('☕', style: TextStyle(fontSize: 40)),
           const SizedBox(height: 12),
           Text(
             'Support Development',
@@ -65,7 +67,7 @@ class BuyMeACoffeeButton extends StatelessWidget {
           ),
           const SizedBox(height: 4),
           Text(
-            'If SC:Synthesis helps you in the \'verse,\nconsider buying me a coffee!',
+            'If SC Synthesis helps you in the \'verse,\nconsider buying me a coffee!',
             textAlign: TextAlign.center,
             style: theme.textTheme.bodySmall?.copyWith(
               color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
