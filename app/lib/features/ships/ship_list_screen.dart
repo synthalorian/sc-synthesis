@@ -341,7 +341,7 @@ class _ShipListScreenState extends State<ShipListScreen> {
               // Ship icon with Hero
               Hero(
                 tag: 'ship-${ship.id}',
-                child: ShipAvatar(manufacturer: ship.manufacturer, size: 48),
+                child: ShipAvatar(manufacturer: ship.manufacturer, slug: ship.slug, size: 48),
               ),
               const SizedBox(width: 14),
 

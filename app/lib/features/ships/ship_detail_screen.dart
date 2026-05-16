@@ -339,7 +339,7 @@ class _ShipDetailScreenState extends State<ShipDetailScreen> {
           children: [
             Hero(
               tag: 'ship-${ship.id}',
-              child: ShipAvatar(manufacturer: ship.manufacturer, size: 20),
+              child: ShipAvatar(manufacturer: ship.manufacturer, slug: ship.slug, size: 20),
             ),
             const SizedBox(width: 8),
             Flexible(
@@ -442,6 +442,7 @@ class _ShipDetailScreenState extends State<ShipDetailScreen> {
     return ShipHero(
       name: ship.name,
       manufacturer: ship.manufacturer,
+      slug: ship.slug,
       priceLabel: priceLabel,
     );
   }
