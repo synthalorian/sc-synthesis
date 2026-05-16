@@ -63,6 +63,8 @@ flutter:
     - assets/data/commodities.json
     - assets/data/components.json
     - assets/data/stores.json
+    - assets/images/ships/
+    - assets/images/ship_image_map.json
 
 flutter_launcher_icons:
   android: true

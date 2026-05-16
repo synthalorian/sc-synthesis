@@ -334,7 +334,7 @@ class FleetScreenState extends State<FleetScreen>
         child: Row(
           children: [
             // Ship icon
-            ShipAvatar(manufacturer: ship.manufacturer, size: 44),
+            ShipAvatar(manufacturer: ship.manufacturer, slug: ship.slug, size: 44),
             const SizedBox(width: 14),
             // Name + manufacturer + optional note
             Expanded(

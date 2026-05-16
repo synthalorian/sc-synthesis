@@ -265,7 +265,7 @@ class _ShipCompareScreenState extends State<ShipCompareScreen> {
                 padding: const EdgeInsets.fromLTRB(16, 12, 8, 0),
                 child: Row(
                   children: [
-                    ShipAvatar(manufacturer: ship.manufacturer, size: 16),
+                    ShipAvatar(manufacturer: ship.manufacturer, slug: ship.slug, size: 16),
                     const SizedBox(width: 6),
                     Expanded(
                       child: Text(
@@ -647,7 +647,10 @@ class _AddShipSheetState extends State<_AddShipSheet> {
                   final ship = _filteredShips[index];
                   return ListTile(
                     leading: ShipAvatar(
-                        manufacturer: ship.manufacturer, size: 36),
+                      manufacturer: ship.manufacturer,
+                      slug: ship.slug,
+                      size: 36,
+                    ),
                     title: Text(
                       ship.name,
                       style: theme.textTheme.bodyMedium

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sc_synthesis/core/data/rust_database_service.dart';
 import 'package:sc_synthesis/core/data/reference_database.dart';
 import 'package:sc_synthesis/core/theme/app_theme.dart';
+import 'package:sc_synthesis/core/widgets/ship_image.dart';
 import 'package:sc_synthesis/features/fleet/fleet_screen.dart';
 import 'package:sc_synthesis/features/guide/guide_screen.dart';
 import 'package:sc_synthesis/features/settings/settings_screen.dart';
@@ -24,6 +25,7 @@ class ScSynthesisAppState extends State<ScSynthesisApp> {
     _themeManager = ThemeManager()..addListener(_onThemeChanged);
     RustDatabaseService().init();
     ReferenceDatabase().load();
+    ShipImageService().load();
   }
 
   @override
