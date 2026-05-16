@@ -2,6 +2,7 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:sc_synthesis/core/data/rust_database_service.dart';
 import 'package:sc_synthesis/core/widgets/fleetyards_link.dart';
+import 'package:sc_synthesis/core/widgets/ship_image.dart';
 import 'package:sc_synthesis/src/rust/api/model.dart';
 
 /// Ship Comparison screen — compare up to 3 ships side by side.
@@ -264,8 +265,7 @@ class _ShipCompareScreenState extends State<ShipCompareScreen> {
                 padding: const EdgeInsets.fromLTRB(16, 12, 8, 0),
                 child: Row(
                   children: [
-                    Icon(Icons.rocket_outlined,
-                        size: 16, color: cs.primary),
+                    ShipAvatar(manufacturer: ship.manufacturer, size: 16),
                     const SizedBox(width: 6),
                     Expanded(
                       child: Text(
@@ -646,16 +646,8 @@ class _AddShipSheetState extends State<_AddShipSheet> {
                 itemBuilder: (context, index) {
                   final ship = _filteredShips[index];
                   return ListTile(
-                    leading: Container(
-                      width: 36,
-                      height: 36,
-                      decoration: BoxDecoration(
-                        color: cs.primary.withValues(alpha: 0.1),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Icon(Icons.rocket_outlined,
-                          size: 18, color: cs.primary),
-                    ),
+                    leading: ShipAvatar(
+                        manufacturer: ship.manufacturer, size: 36),
                     title: Text(
                       ship.name,
                       style: theme.textTheme.bodyMedium

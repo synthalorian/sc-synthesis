@@ -2,6 +2,7 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:sc_synthesis/core/data/user_ship_data.dart';
 import 'package:sc_synthesis/src/rust/api/model.dart';
+import 'package:sc_synthesis/core/widgets/ship_image.dart';
 import 'package:sc_synthesis/core/widgets/fleetyards_link.dart';
 
 /// Full-screen ship detail view with synthwave '84 aesthetic.
@@ -338,7 +339,7 @@ class _ShipDetailScreenState extends State<ShipDetailScreen> {
           children: [
             Hero(
               tag: 'ship-${ship.id}',
-              child: Icon(Icons.rocket_outlined, size: 20, color: cs.primary),
+              child: ShipAvatar(manufacturer: ship.manufacturer, size: 20),
             ),
             const SizedBox(width: 8),
             Flexible(
@@ -435,150 +436,13 @@ class _ShipDetailScreenState extends State<ShipDetailScreen> {
 
   Widget _buildHeroSection(
       BuildContext context, ThemeData theme, ColorScheme cs) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 0),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            const Color(0xFF0E0E24),
-            const Color(0xFF16163A).withValues(alpha: 0.8),
-          ],
-        ),
-        border: Border.all(
-          color: cs.primary.withValues(alpha: 0.15),
-          width: 1,
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: cs.primary.withValues(alpha: 0.08),
-            blurRadius: 24,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(12),
-        child: BackdropFilter(
-          filter: _glassBlur(),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
-            child: Column(
-              children: [
-                // Icon with Hero transition
-                Hero(
-                  tag: 'ship-${ship.id}',
-                  child: Container(
-                    width: 72,
-                    height: 72,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [
-                          cs.primary.withValues(alpha: 0.2),
-                          cs.secondary.withValues(alpha: 0.1),
-                        ],
-                      ),
-                      border: Border.all(
-                        color: cs.primary.withValues(alpha: 0.3),
-                        width: 1.5,
-                      ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: cs.primary.withValues(alpha: 0.15),
-                          blurRadius: 20,
-                        ),
-                      ],
-                    ),
-                    child: Icon(
-                      Icons.rocket_launch_outlined,
-                      size: 32,
-                      color: cs.primary,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 16),
-                // Name
-                Hero(
-                  tag: 'ship-name-${ship.id}',
-                  child: Material(
-                    color: Colors.transparent,
-                    child: Text(
-                      ship.name,
-                      textAlign: TextAlign.center,
-                      style: theme.textTheme.headlineSmall?.copyWith(
-                        fontWeight: FontWeight.w700,
-                        letterSpacing: 1.5,
-                        color: cs.onSurface,
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 4),
-                // Manufacturer
-                Text(
-                  ship.manufacturer,
-                  style: theme.textTheme.titleSmall?.copyWith(
-                    color: cs.secondary,
-                    letterSpacing: 2.0,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                const SizedBox(height: 20),
-                // Price row
-                _buildPledgePrice(context, theme, cs),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildPledgePrice(
-      BuildContext context, ThemeData theme, ColorScheme cs) {
-    final priceStr = ship.pledgePriceLabel();
-    return FutureBuilder<String>(
-      future: priceStr,
-      builder: (context, snapshot) {
-        final label = snapshot.data ?? '';
-        if (label.isEmpty) return const SizedBox.shrink();
-        return Container(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            gradient: LinearGradient(
-              colors: [
-                cs.primary.withValues(alpha: 0.15),
-                cs.primary.withValues(alpha: 0.05),
-              ],
-            ),
-            border: Border.all(
-              color: cs.primary.withValues(alpha: 0.2),
-              width: 1,
-            ),
-          ),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(Icons.local_offer_outlined, size: 16, color: cs.primary),
-              const SizedBox(width: 8),
-              Text(
-                label,
-                style: theme.textTheme.labelLarge?.copyWith(
-                  color: cs.primary,
-                  fontWeight: FontWeight.w600,
-                  letterSpacing: 1.0,
-                ),
-              ),
-            ],
-          ),
-        );
-      },
+    final priceLabel = ship.pledgePrice > 0
+        ? 'US\$ ${ship.pledgePrice.toStringAsFixed(0)}'
+        : '';
+    return ShipHero(
+      name: ship.name,
+      manufacturer: ship.manufacturer,
+      priceLabel: priceLabel,
     );
   }
 

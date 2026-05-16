@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sc_synthesis/core/data/rust_database_service.dart';
+import 'package:sc_synthesis/core/widgets/ship_image.dart';
 import 'package:sc_synthesis/core/widgets/shimmer_loading.dart';
 import 'package:sc_synthesis/core/widgets/fleetyards_link.dart';
 import 'package:sc_synthesis/features/ships/ship_detail_screen.dart';
@@ -340,19 +341,7 @@ class _ShipListScreenState extends State<ShipListScreen> {
               // Ship icon with Hero
               Hero(
                 tag: 'ship-${ship.id}',
-                child: Container(
-                  width: 48,
-                  height: 48,
-                  decoration: BoxDecoration(
-                    color: theme.colorScheme.primary.withValues(alpha: 0.1),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Icon(
-                    Icons.rocket_outlined,
-                    color: theme.colorScheme.primary,
-                    size: 24,
-                  ),
-                ),
+                child: ShipAvatar(manufacturer: ship.manufacturer, size: 48),
               ),
               const SizedBox(width: 14),
 
