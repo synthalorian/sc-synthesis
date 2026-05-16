@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sc_synthesis/core/widgets/component_image.dart';
 
 /// Generic category detail screen for the Guide hub.
 ///
@@ -132,19 +133,26 @@ class GuideCategoryScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     // Icon for the item
-                    Container(
-                      width: 40,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: categoryIconColor.withValues(alpha: 0.1),
+                    if (categoryId == 'components')
+                      ComponentAvatar(
+                        category: item['category'] as String? ?? '',
+                        manufacturer: item['manufacturer'] as String? ?? '',
+                        size: 40,
+                      )
+                    else
+                      Container(
+                        width: 40,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: categoryIconColor.withValues(alpha: 0.1),
+                        ),
+                        child: Icon(
+                          categoryIcon,
+                          size: 20,
+                          color: categoryIconColor,
+                        ),
                       ),
-                      child: Icon(
-                        categoryIcon,
-                        size: 20,
-                        color: categoryIconColor,
-                      ),
-                    ),
                     const SizedBox(width: 12),
                     // Name and badge
                     Expanded(
