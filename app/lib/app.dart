@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:sc_synthesis/core/theme/app_theme.dart';
-import 'package:sc_synthesis/core/theme/widgets/theme_selector.dart';
 import 'package:sc_synthesis/core/data/rust_database_service.dart';
 import 'package:sc_synthesis/features/fleet/fleet_screen.dart';
 import 'package:sc_synthesis/features/settings/settings_screen.dart';
@@ -34,19 +33,6 @@ class ScSynthesisAppState extends State<ScSynthesisApp> {
 
   void _onThemeChanged() => setState(() {});
 
-  void _openThemeSelector() async {
-    final result = await Navigator.of(context).push<AppThemeType>(
-      MaterialPageRoute(
-        builder: (_) => ThemeSelectorScreen(
-          currentType: _themeManager.currentType,
-        ),
-      ),
-    );
-    if (result != null && mounted) {
-      _themeManager.setTheme(result);
-    }
-  }
-
   void _switchToTab(int index) {
     setState(() => _currentTab = index);
   }
@@ -77,15 +63,10 @@ class ScSynthesisAppState extends State<ScSynthesisApp> {
             index: _currentTab,
             children: [
               FleetScreen(
-                onTapTheme: _openThemeSelector,
                 onSwitchToShipsTab: () => _switchToTab(1),
               ),
-              ShipListScreen(
-                onTapTheme: _openThemeSelector,
-              ),
-              SettingsScreen(
-                onTapTheme: _openThemeSelector,
-              ),
+              ShipListScreen(),
+              SettingsScreen(),
             ],
           ),
         ),

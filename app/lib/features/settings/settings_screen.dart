@@ -10,8 +10,7 @@ import 'package:sc_synthesis/features/ships/ship_compare_screen.dart';
 /// Settings / About screen — replaces the old Profile/Login tab.
 /// Shows app info, database stats, external links, and theme selector access.
 class SettingsScreen extends StatelessWidget {
-  final VoidCallback? onTapTheme;
-  const SettingsScreen({super.key, this.onTapTheme});
+  const SettingsScreen({super.key});
 
   void _openThemeSelector(BuildContext context) {
     Navigator.of(context).push<AppThemeType>(
@@ -36,13 +35,6 @@ class SettingsScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('SC Synthesis'),
         centerTitle: true,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.palette_outlined),
-            onPressed: () => _openThemeSelector(context),
-            tooltip: 'Theme',
-          ),
-        ],
       ),
       body: ListView(
         padding: const EdgeInsets.all(16),
