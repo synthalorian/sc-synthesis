@@ -9,9 +9,7 @@ import 'package:sc_synthesis/src/rust/api/model.dart';
 /// Ship browser — browse all ships via the embedded Rust/SQLite backend.
 /// 100% offline — no server required.
 class ShipListScreen extends StatefulWidget {
-  final VoidCallback? onTapTheme;
-
-  const ShipListScreen({super.key, this.onTapTheme});
+  const ShipListScreen({super.key});
 
   @override
   State<ShipListScreen> createState() => _ShipListScreenState();
@@ -107,11 +105,6 @@ class _ShipListScreenState extends State<ShipListScreen> {
         centerTitle: true,
         actions: !_loading && _error == null
             ? [
-                IconButton(
-                  icon: const Icon(Icons.palette_outlined),
-                  onPressed: widget.onTapTheme,
-                  tooltip: 'Theme',
-                ),
                 IconButton(
                   icon: const Icon(Icons.search),
                   onPressed: _showSearch,

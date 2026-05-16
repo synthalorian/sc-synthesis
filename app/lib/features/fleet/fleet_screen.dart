@@ -8,14 +8,9 @@ import 'package:sc_synthesis/src/rust/api/model.dart';
 /// Loads ships from the bundled SQLite database via RustDatabaseService,
 /// overlays UserShipData for owned/wishlist tracking.
 class FleetScreen extends StatefulWidget {
-  final VoidCallback? onTapTheme;
   final VoidCallback? onSwitchToShipsTab;
 
-  const FleetScreen({
-    super.key,
-    this.onTapTheme,
-    this.onSwitchToShipsTab,
-  });
+  const FleetScreen({super.key, this.onSwitchToShipsTab});
 
   @override
   State<FleetScreen> createState() => FleetScreenState();
@@ -125,13 +120,6 @@ class FleetScreenState extends State<FleetScreen>
       appBar: AppBar(
         title: const Text('My Fleet'),
         centerTitle: true,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.palette_outlined),
-            onPressed: widget.onTapTheme,
-            tooltip: 'Theme',
-          ),
-        ],
         bottom: _loading
             ? null
             : TabBar(
