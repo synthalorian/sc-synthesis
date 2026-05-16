@@ -61,6 +61,7 @@ flutter:
     - assets/data/missions.json
     - assets/data/locations.json
     - assets/data/commodities.json
+    - assets/data/components.json
 
 flutter_launcher_icons:
   android: true

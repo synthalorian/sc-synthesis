@@ -83,10 +83,10 @@ class _GuideScreenState extends State<GuideScreen> {
     _GuideCategory(
       id: 'components',
       title: 'Components',
-      subtitle: 'Shields, weapons, power plants, coolers',
+      subtitle: 'Weapons, shields, armor, and power plants',
       icon: Icons.build,
       iconColor: Color(0xFFFF5555),
-      dbCategory: 'commodities',
+      dbCategory: 'components',
     ),
     _GuideCategory(
       id: 'medical',
@@ -334,6 +334,9 @@ class _GuideScreenState extends State<GuideScreen> {
         break;
       case 'commodities':
         data = _db.commodities;
+        break;
+      case 'components':
+        data = _db.components;
         break;
       default:
         data = _db.factions;
