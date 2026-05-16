@@ -1,0 +1,86 @@
+[
+  {
+    "id": "abrade",
+    "name": "Abrade",
+    "type": "module",
+    "description": "Entry-level salvage beam that strips hull material at a modest rate. Fits most salvage ships.",
+    "subtype": "Salvage Head",
+    "tier": 1,
+    "effect": "Entry-level salvage beam. 50m range. Strips hull material at 0.5 SCU/min. Fits most salvage ships.",
+    "price": 35000
+  },
+  {
+    "id": "cinch",
+    "name": "Cinch",
+    "type": "module",
+    "description": "Basic salvage beam with a compact size suitable for smaller vessels. Lower throughput but easy to fit.",
+    "subtype": "Salvage Head",
+    "tier": 1,
+    "effect": "Basic salvage beam. 40m range. Strips hull at 0.3 SCU/min. Compact size for smaller vessels.",
+    "price": 28000
+  },
+  {
+    "id": "vulture-snack",
+    "name": "Snack",
+    "type": "module",
+    "description": "Improved salvage beam with better efficiency and range than entry-level heads.",
+    "subtype": "Salvage Head",
+    "tier": 2,
+    "effect": "Improved salvage beam. 60m range. Strips hull at 0.8 SCU/min. Better efficiency than entry-level heads.",
+    "price": 65000
+  },
+  {
+    "id": "salvage-filler",
+    "name": "Salvage Filler",
+    "type": "consumable",
+    "description": "Fills space with low-quality filler material to fix the 'fracture' state on a hull.",
+    "subtype": "Consumable",
+    "effect": "Fills 0.5 SCU of space with low-quality filler material. Used to fix the 'fracture' state.",
+    "price": 500
+  },
+  {
+    "id": "salvage-caulk",
+    "name": "Salvage Caulk",
+    "type": "consumable",
+    "description": "Temporarily repairs hull fractures for 1 minute, stopping debris shedding.",
+    "subtype": "Consumable",
+    "effect": "Temporarily repairs hull fractures. 1-minute duration. Stops debris shedding.",
+    "price": 300
+  },
+  {
+    "id": "salvage-stabilizer",
+    "name": "Salvage Stabilizer",
+    "type": "consumable",
+    "description": "Prevents hull fracture during high-speed salvage operations for 5 minutes.",
+    "subtype": "Consumable",
+    "effect": "Prevents hull fracture during high-speed salvage operations. 5-minute duration.",
+    "price": 4000
+  },
+  {
+    "id": "salvage-scrap",
+    "name": "RMC (Recycled Material Composite)",
+    "type": "resource",
+    "description": "High-quality salvaged hull material used in ship manufacturing and repair. 1 SCU per crate.",
+    "subtype": "Material",
+    "effect": "High-quality salvaged hull material. Used in ship manufacturing and repair. 1 SCU per crate.",
+    "price": 8.50
+  },
+  {
+    "id": "salvage-waste",
+    "name": "Construction Waste",
+    "type": "resource",
+    "description": "Low-value debris from damaged ship hulls. Bulk material with minimal refining value.",
+    "subtype": "Waste",
+    "effect": "Low-value debris from damaged ship hulls. Bulk material with minimal refining value.",
+    "price": 0.55
+  },
+  {
+    "id": "salvage-commodity",
+    "name": "Salvaged Goods",
+    "type": "resource",
+    "description": "Recovered cargo and equipment from derelict ships. Value varies based on original contents.",
+    "subtype": "Goods",
+    "effect": "Recovered cargo and equipment from derelict ships. Variable value based on original contents.",
+    "price": 15.00
+  }
+]

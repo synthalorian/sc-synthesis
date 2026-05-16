@@ -15,6 +15,9 @@ class ReferenceDatabase {
   List<Map<String, dynamic>> _commodities = [];
   List<Map<String, dynamic>> _components = [];
   List<Map<String, dynamic>> _stores = [];
+  List<Map<String, dynamic>> _tools = [];
+  List<Map<String, dynamic>> _miningGadgets = [];
+  List<Map<String, dynamic>> _salvageData = [];
   bool _loaded = false;
 
   bool get isLoaded => _loaded;
@@ -31,6 +34,9 @@ class ReferenceDatabase {
       rootBundle.loadString('assets/data/commodities.json'),
       rootBundle.loadString('assets/data/components.json'),
       rootBundle.loadString('assets/data/stores.json'),
+      rootBundle.loadString('assets/data/tools.json'),
+      rootBundle.loadString('assets/data/mining_gadgets.json'),
+      rootBundle.loadString('assets/data/salvage_data.json'),
     ]);
 
     _factions = List<Map<String, dynamic>>.from(
@@ -57,6 +63,18 @@ class ReferenceDatabase {
       (json.decode(futures[5]) as List<dynamic>)
           .map((e) => e as Map<String, dynamic>),
     );
+    _tools = List<Map<String, dynamic>>.from(
+      (json.decode(futures[6]) as List<dynamic>)
+          .map((e) => e as Map<String, dynamic>),
+    );
+    _miningGadgets = List<Map<String, dynamic>>.from(
+      (json.decode(futures[7]) as List<dynamic>)
+          .map((e) => e as Map<String, dynamic>),
+    );
+    _salvageData = List<Map<String, dynamic>>.from(
+      (json.decode(futures[8]) as List<dynamic>)
+          .map((e) => e as Map<String, dynamic>),
+    );
 
     _loaded = true;
   }
@@ -74,6 +92,12 @@ class ReferenceDatabase {
       List.unmodifiable(_components);
   List<Map<String, dynamic>> get stores =>
       List.unmodifiable(_stores);
+  List<Map<String, dynamic>> get tools =>
+      List.unmodifiable(_tools);
+  List<Map<String, dynamic>> get miningGadgets =>
+      List.unmodifiable(_miningGadgets);
+  List<Map<String, dynamic>> get salvageData =>
+      List.unmodifiable(_salvageData);
 
   /// Search across all categories by name, type, or location planet.
   /// Returns a flat list of maps with the category name stored under `_category`.

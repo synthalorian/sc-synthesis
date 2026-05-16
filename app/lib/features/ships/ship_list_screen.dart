@@ -5,6 +5,7 @@ import 'package:sc_synthesis/core/widgets/shimmer_loading.dart';
 import 'package:sc_synthesis/core/widgets/fleetyards_link.dart';
 import 'package:sc_synthesis/features/ships/ship_detail_screen.dart';
 import 'package:sc_synthesis/features/ships/ship_compare_screen.dart';
+import 'package:sc_synthesis/features/loadouts/loadout_list_screen.dart';
 import 'package:sc_synthesis/src/rust/api/model.dart';
 
 /// Ship browser — browse all ships via the embedded Rust/SQLite backend.
@@ -120,6 +121,16 @@ class _ShipListScreenState extends State<ShipListScreen> {
                     ),
                   ),
                   tooltip: 'Compare ships',
+                ),
+                IconButton(
+                  icon: const Icon(Icons.build_outlined),
+                  onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => const LoadoutListScreen(),
+                    ),
+                  ),
+                  tooltip: 'Ship loadouts',
                 ),
                 if (_availableSizes.isNotEmpty)
                   PopupMenuButton<String>(

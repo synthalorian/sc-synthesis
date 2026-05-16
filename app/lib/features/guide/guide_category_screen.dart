@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sc_synthesis/core/widgets/component_image.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 /// Generic category detail screen for the Guide hub.
 ///
@@ -375,6 +376,8 @@ class GuideCategoryScreen extends StatelessWidget {
         return _buildCommodityDetail(theme, item, description, typeLabel, typeColor);
       case 'locations':
         return _buildLocationDetail(theme, item, description);
+      case 'resources':
+        return _buildToolDetail(context, theme, item, description);
       default:
         return _buildDefaultDetail(theme, item, description);
     }
@@ -604,7 +607,15 @@ class GuideCategoryScreen extends StatelessWidget {
       ThemeData theme, Map<String, dynamic> item, String description) {
     final widgets = <Widget>[];
 
-    // Planet
+    // System
+    if (item['system'] != null) {
+      widgets.add(
+        _infoRow(theme, Icons.rocket_launch, 'System', item['system'] as String),
+      );
+      widgets.add(const SizedBox(height: 10));
+    }
+
+    // Planet / parent body
     if (item['planet'] != null) {
       widgets.add(
         _infoRow(theme, Icons.public, 'Planet', item['planet'] as String),
@@ -618,30 +629,307 @@ class GuideCategoryScreen extends StatelessWidget {
       widgets.add(const SizedBox(height: 16));
     }
 
-    // Services as icon chips
-    if (item['services'] != null) {
-      final services = item['services'] as List<dynamic>;
+    // Body type + Habitability badges
+    if (item['bodyType'] != null) {
+      final bodyType = item['bodyType'] as String;
+      final habitable = item['habitable'] as bool?;
+      widgets.add(
+        _infoRow(theme, Icons.category, 'Type', bodyType),
+      );
+      if (habitable != null) {
+        widgets.add(const SizedBox(height: 8));
+        widgets.add(
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+            decoration: BoxDecoration(
+              color: habitable
+                  ? Colors.green.withValues(alpha: 0.1)
+                  : Colors.orange.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(
+                color: (habitable ? Colors.green : Colors.orange)
+                    .withValues(alpha: 0.3),
+              ),
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(
+                  habitable
+                      ? Icons.check_circle_outline
+                      : Icons.warning_amber_outlined,
+                  size: 14,
+                  color: habitable ? Colors.green.shade300 : Colors.orange.shade300,
+                ),
+                const SizedBox(width: 6),
+                Text(
+                  habitable ? 'Habitable' : 'Uninhabitable',
+                  style: theme.textTheme.labelSmall?.copyWith(
+                    color: habitable ? Colors.green.shade300 : Colors.orange.shade300,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+        widgets.add(const SizedBox(height: 16));
+      }
+    }
+
+    // Population / Crime / Economy ratings
+    if (item['population'] != null) {
+      widgets.add(_ratingRow(theme, Icons.people, 'Population',
+          (item['population'] as num).toInt()));
+      widgets.add(const SizedBox(height: 8));
+    }
+    if (item['crime'] != null) {
+      widgets.add(_ratingRow(theme, Icons.gavel, 'Crime',
+          (item['crime'] as num).toInt()));
+      widgets.add(const SizedBox(height: 8));
+    }
+    if (item['economy'] != null) {
+      widgets.add(_ratingRow(theme, Icons.trending_up, 'Economy',
+          (item['economy'] as num).toInt()));
+      widgets.add(const SizedBox(height: 16));
+    }
+
+    // Physical stats section
+    final hasStats = item['dayLength'] != null ||
+        item['temperatureRange'] != null ||
+        item['diameter'] != null ||
+        item['atmosphericPressure'] != null;
+
+    if (hasStats) {
       widgets.add(
         Text(
-          'Services',
+          'Planetary Data',
           style: theme.textTheme.labelMedium?.copyWith(
             color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
           ),
         ),
       );
       widgets.add(const SizedBox(height: 8));
+
+      if (item['dayLength'] != null) {
+        widgets.add(_statTile(theme, Icons.schedule, 'Day Length',
+            item['dayLength'] as String));
+        widgets.add(const SizedBox(height: 6));
+      }
+      if (item['temperatureRange'] != null) {
+        widgets.add(_statTile(theme, Icons.thermostat, 'Temperature',
+            item['temperatureRange'] as String));
+        widgets.add(const SizedBox(height: 6));
+      }
+      if (item['diameter'] != null) {
+        final diam = (item['diameter'] as num).toDouble();
+        widgets.add(_statTile(theme, Icons.straighten, 'Diameter',
+            '${diam.toStringAsFixed(0)} km'));
+        widgets.add(const SizedBox(height: 6));
+      }
+      if (item['karmanLine'] != null) {
+        final kl = (item['karmanLine'] as num).toDouble();
+        widgets.add(_statTile(theme, Icons.height, 'Kármán Line',
+            '${kl.toStringAsFixed(0)} km'));
+        widgets.add(const SizedBox(height: 6));
+      }
+      if (item['atmosphericPressure'] != null) {
+        final pressure = (item['atmosphericPressure'] as num).toDouble();
+        widgets.add(_statTile(theme, Icons.compress, 'Pressure',
+            '${pressure.toStringAsFixed(2)} bar'));
+        widgets.add(const SizedBox(height: 6));
+      }
+
+      widgets.add(const SizedBox(height: 16));
+    }
+
+    // Atmospheric composition
+    if (item['atmosphere'] != null) {
+      final atmosphere = item['atmosphere'] as List<dynamic>;
       widgets.add(
-        Wrap(
-          spacing: 8,
-          runSpacing: 8,
-          children: services.map((service) {
-            return _serviceChip(theme, service as String);
-          }).toList(),
+        Text(
+          'Atmospheric Composition',
+          style: theme.textTheme.labelMedium?.copyWith(
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
+          ),
         ),
       );
+      widgets.add(const SizedBox(height: 8));
+
+      for (final gas in atmosphere) {
+        final gasName = gas['gas'] as String? ?? '';
+        final symbol = gas['symbol'] as String? ?? '';
+        final pct = (gas['percentage'] as num).toDouble();
+        widgets.add(
+          Padding(
+            padding: const EdgeInsets.only(bottom: 6),
+            child: Row(
+              children: [
+                SizedBox(
+                  width: 100,
+                  child: Text(
+                    gasName,
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      color: theme.colorScheme.onSurface
+                          .withValues(alpha: 0.7),
+                      fontSize: 12,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 40,
+                  child: Text(
+                    symbol,
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      color: theme.colorScheme.onSurface
+                          .withValues(alpha: 0.4),
+                      fontSize: 11,
+                      fontStyle: FontStyle.italic,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(3),
+                    child: LinearProgressIndicator(
+                      value: pct / 100.0,
+                      backgroundColor: theme.colorScheme.onSurface
+                          .withValues(alpha: 0.08),
+                      color: categoryIconColor.withValues(alpha: 0.6),
+                      minHeight: 8,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 12),
+                SizedBox(
+                  width: 48,
+                  child: Text(
+                    '${pct.toStringAsFixed(1)}%',
+                    textAlign: TextAlign.right,
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      color: theme.colorScheme.onSurface,
+                      fontSize: 11,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      }
+      widgets.add(const SizedBox(height: 16));
+    }
+
+    // Services as icon chips
+    if (item['services'] != null) {
+      final services = item['services'] as List<dynamic>;
+      if (services.isNotEmpty) {
+        widgets.add(
+          Text(
+            'Services',
+            style: theme.textTheme.labelMedium?.copyWith(
+              color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
+            ),
+          ),
+        );
+        widgets.add(const SizedBox(height: 8));
+        widgets.add(
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: services.map((service) {
+              return _serviceChip(theme, service as String);
+            }).toList(),
+          ),
+        );
+      }
     }
 
     return widgets;
+  }
+
+  /// A rating row with a color-coded bar (1-10).
+  Widget _ratingRow(ThemeData theme, IconData icon, String label, int value) {
+    final clamped = value.clamp(0, 10);
+    final fraction = clamped / 10.0;
+    final color = clamped >= 8
+        ? Colors.red.shade400
+        : clamped >= 5
+            ? Colors.orange.shade400
+            : Colors.green.shade400;
+
+    return Row(
+      children: [
+        Icon(icon, size: 16, color: categoryIconColor),
+        const SizedBox(width: 8),
+        SizedBox(
+          width: 90,
+          child: Text(
+            label,
+            style: theme.textTheme.bodySmall?.copyWith(
+              color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
+              fontSize: 12,
+            ),
+          ),
+        ),
+        Expanded(
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(3),
+            child: LinearProgressIndicator(
+              value: fraction,
+              backgroundColor: theme.colorScheme.onSurface
+                  .withValues(alpha: 0.08),
+              color: color,
+              minHeight: 10,
+            ),
+          ),
+        ),
+        const SizedBox(width: 10),
+        SizedBox(
+          width: 28,
+          child: Text(
+            '$clamped/10',
+            textAlign: TextAlign.right,
+            style: theme.textTheme.bodySmall?.copyWith(
+              color: theme.colorScheme.onSurface,
+              fontSize: 11,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  /// A simple stat label-value tile.
+  Widget _statTile(ThemeData theme, IconData icon, String label, String value) {
+    return Row(
+      children: [
+        Icon(icon, size: 14, color: categoryIconColor.withValues(alpha: 0.6)),
+        const SizedBox(width: 8),
+        SizedBox(
+          width: 110,
+          child: Text(
+            label,
+            style: theme.textTheme.bodySmall?.copyWith(
+              color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
+              fontSize: 12,
+            ),
+          ),
+        ),
+        Expanded(
+          child: Text(
+            value,
+            style: theme.textTheme.bodySmall?.copyWith(
+              color: theme.colorScheme.onSurface,
+              fontSize: 12,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ),
+      ],
+    );
   }
 
   // ---------------------------------------------------------------------------
@@ -714,6 +1002,131 @@ class GuideCategoryScreen extends StatelessWidget {
           ),
         );
       }
+    }
+
+    return widgets;
+  }
+
+  // ---------------------------------------------------------------------------
+  // Tools / Resources
+  // ---------------------------------------------------------------------------
+  List<Widget> _buildToolDetail(BuildContext context, ThemeData theme,
+      Map<String, dynamic> item, String description) {
+    final widgets = <Widget>[];
+    final author = item['author'] as String? ?? '';
+    final category = item['category'] as String? ?? '';
+    final url = item['url'] as String? ?? '';
+    final contact = item['contact'] as String? ?? '';
+    final support = item['support'] as String? ?? '';
+
+    final categoryIcon = switch (category) {
+      'combat' => Icons.gps_fixed,
+      'mining' => Icons.explore,
+      'trading' => Icons.shopping_cart,
+      'exploration' => Icons.map,
+      'universal' => Icons.build,
+      _ => Icons.link,
+    };
+    final categoryColor = switch (category) {
+      'combat' => Colors.red.shade400,
+      'mining' => Colors.orange.shade400,
+      'trading' => Colors.amber.shade400,
+      'exploration' => Colors.lightBlue.shade400,
+      'universal' => Colors.purple.shade400,
+      _ => Colors.grey.shade400,
+    };
+
+    // Category badge
+    if (category.isNotEmpty) {
+      widgets.add(
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+          margin: const EdgeInsets.only(bottom: 12),
+          decoration: BoxDecoration(
+            color: categoryColor.withValues(alpha: 0.1),
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(
+              color: categoryColor.withValues(alpha: 0.3),
+            ),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(categoryIcon, size: 14, color: categoryColor),
+              const SizedBox(width: 6),
+              Text(
+                category[0].toUpperCase() + category.substring(1),
+                style: theme.textTheme.labelSmall?.copyWith(
+                  color: categoryColor,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
+    // Description
+    if (description.isNotEmpty) {
+      widgets.add(_detailSectionText(theme, description));
+      widgets.add(const SizedBox(height: 16));
+    }
+
+    // Author
+    if (author.isNotEmpty) {
+      widgets.add(
+        _infoRow(theme, Icons.person, 'Created by', author),
+      );
+      widgets.add(const SizedBox(height: 10));
+    }
+
+    // Contact
+    if (contact.isNotEmpty) {
+      widgets.add(
+        _infoRow(theme, Icons.chat, 'Contact', contact),
+      );
+      widgets.add(const SizedBox(height: 10));
+    }
+
+    // Support
+    if (support.isNotEmpty) {
+      widgets.add(
+        _infoRow(theme, Icons.favorite, 'Support', support),
+      );
+      widgets.add(const SizedBox(height: 10));
+    }
+
+    // Open button
+    if (url.isNotEmpty) {
+      widgets.add(const SizedBox(height: 8));
+      widgets.add(
+        SizedBox(
+          width: double.infinity,
+          child: FilledButton.icon(
+            onPressed: () async {
+              try {
+                final uri = Uri.parse(url);
+                await launchUrl(uri, mode: LaunchMode.externalApplication);
+              } catch (_) {
+                if (context.mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Could not open link')),
+                  );
+                }
+              }
+            },
+            icon: const Icon(Icons.open_in_new, size: 18),
+            label: const Text('Open Tool'),
+            style: FilledButton.styleFrom(
+              padding: const EdgeInsets.symmetric(vertical: 14),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+            ),
+          ),
+        ),
+      );
     }
 
     return widgets;

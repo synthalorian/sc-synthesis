@@ -1,0 +1,258 @@
+[
+  {
+    "id": "reiger-c3",
+    "name": "Rieger C3",
+    "type": "gadget",
+    "description": "Entry-level mining laser manufactured by Rieger. Best for small deposits and新手 miners.",
+    "subtype": "Laser",
+    "tier": 1,
+    "effect": "Entry-level mining laser. 60m range, 1800 damage/sec. Best for small deposits.",
+    "price": 45000
+  },
+  {
+    "id": "reiger-c2",
+    "name": "Rieger C2",
+    "type": "gadget",
+    "description": "Mid-range mining laser from Rieger. Versatile performance suitable for most mining operations.",
+    "subtype": "Laser",
+    "tier": 2,
+    "effect": "Mid-range mining laser. 80m range, 3000 damage/sec. Versatile for most mining operations.",
+    "price": 96500
+  },
+  {
+    "id": "reiger-c1",
+    "name": "Rieger C1",
+    "type": "gadget",
+    "description": "Top-tier Rieger mining laser designed for large deposits and Quantanium extraction.",
+    "subtype": "Laser",
+    "tier": 3,
+    "effect": "Top-tier mining laser. 100m range, 5500 damage/sec. Optimal for large deposits and Quantanium.",
+    "price": 189000
+  },
+  {
+    "id": "helix-ii",
+    "name": "Helix II",
+    "type": "gadget",
+    "description": "Features the widest lens of any mining laser, covering a huge area at the cost of slower damage output.",
+    "subtype": "Laser",
+    "tier": 3,
+    "effect": "Widest lens laser. 140m range, 3800 damage/sec. Slower but covers huge area.",
+    "price": 345000
+  },
+  {
+    "id": "hofstede-ii",
+    "name": "Hofstede II",
+    "type": "gadget",
+    "description": "Precision-focused laser with excellent stability and control for careful mineral extraction.",
+    "subtype": "Laser",
+    "tier": 2,
+    "effect": "Precision-focused laser. 90m range, 2500 damage/sec. Excellent stability and control.",
+    "price": 128000
+  },
+  {
+    "id": "impact-i",
+    "name": "Impact I",
+    "type": "gadget",
+    "description": "Budget-friendly mining laser that gets the job done for small-scale operations.",
+    "subtype": "Laser",
+    "tier": 1,
+    "effect": "Budget mining laser. 50m range, 1200 damage/sec. Gets the job done for small-scale mining.",
+    "price": 32000
+  },
+  {
+    "id": "kleen-kutter-tk2",
+    "name": "Kleen Kutter TK-2",
+    "type": "gadget",
+    "description": "The workhorse of the mining industry — a reliable all-rounder laser suitable for most situations.",
+    "subtype": "Laser",
+    "tier": 2,
+    "effect": "Reliable all-rounder laser. 70m range, 2200 damage/sec. The workhorse of the mining industry.",
+    "price": 75000
+  },
+  {
+    "id": "surge",
+    "name": "Surge",
+    "type": "module",
+    "description": "Temporarily overcharges your mining laser for a massive power boost at the risk of instability.",
+    "subtype": "Surge",
+    "tier": 1,
+    "effect": "Temporarily increases laser power by 200% for 3 seconds. Risk of instability.",
+    "price": 7500
+  },
+  {
+    "id": "stampede",
+    "name": "Stampede",
+    "type": "module",
+    "description": "Provides a sustained power boost longer than Surge but with higher instability risk.",
+    "subtype": "Stampede",
+    "tier": 2,
+    "effect": "Increases laser power by 150% for 5 seconds. Higher instability risk than Surge.",
+    "price": 12000
+  },
+  {
+    "id": "optimal",
+    "name": "Optimal Window",
+    "type": "module",
+    "description": "Widens the optimal fracture window, making it easier to land hits in the green zone.",
+    "subtype": "Optimal",
+    "tier": 1,
+    "effect": "Widens the optimal fracture window by 20%, making it easier to hit the green zone.",
+    "price": 8000
+  },
+  {
+    "id": "lifeline",
+    "name": "Lifeline",
+    "type": "module",
+    "description": "Helps keep your laser running cooler by reducing overheating buildup.",
+    "subtype": "Lifeline",
+    "tier": 1,
+    "effect": "Reduces overheating buildup by 15%. Keeps your laser running cooler.",
+    "price": 6000
+  },
+  {
+    "id": "torvald-brandt",
+    "name": "Torvald Brandt T1",
+    "type": "module",
+    "description": "A Rieger-branded module that improves overall laser handling and energy efficiency.",
+    "subtype": "Rieger",
+    "tier": 1,
+    "effect": "A Rieger module, improves overall laser handling and reduces energy waste by 10%.",
+    "price": 9500
+  },
+  {
+    "id": "vaux-cargo",
+    "name": "Vaux Cargo",
+    "type": "module",
+    "description": "Increases your ship's cargo capacity while equipped to the mining laser.",
+    "subtype": "Cargo",
+    "tier": 1,
+    "effect": "Increases cargo capacity by 10% while equipped to the mining laser.",
+    "price": 5000
+  },
+  {
+    "id": "moynite-solute",
+    "name": "Moynite Solute",
+    "type": "consumable",
+    "description": "Inject into a deposit to temporarily reduce its instability, making it safer to fracture.",
+    "subtype": "Consumable",
+    "effect": "Inject into a deposit to reduce its instability by 25% for 30 seconds.",
+    "price": 2000
+  },
+  {
+    "id": "borase-solute",
+    "name": "Borase Solute",
+    "type": "consumable",
+    "description": "Injected into a deposit to temporarily widen the fracture window for easier extraction.",
+    "subtype": "Consumable",
+    "effect": "Inject into a deposit to temporarily widen the fracture window.",
+    "price": 1500
+  },
+  {
+    "id": "sabir-solute",
+    "name": "Sabir Solute",
+    "type": "consumable",
+    "description": "Increases a deposit's fracture resistance, buying you more time in the green zone.",
+    "subtype": "Consumable",
+    "effect": "Inject into a deposit to increase its fracture resistance, allowing more time in the green zone.",
+    "price": 2500
+  },
+  {
+    "id": "quantanium",
+    "name": "Quantanium",
+    "type": "resource",
+    "description": "High-value volatile mineral that must be refined within 30 minutes of extraction or it explodes.",
+    "subtype": "Mineral",
+    "effect": "High-value volatile mineral. Must be refined within 30 minutes of extraction or it explodes.",
+    "price": 48.50
+  },
+  {
+    "id": "laranite",
+    "name": "Laranite",
+    "type": "resource",
+    "description": "Rare crystalline mineral used in shield generators and quantum drive manufacturing.",
+    "subtype": "Mineral",
+    "effect": "Rare crystalline mineral used in shield generators and quantum drives.",
+    "price": 55.00
+  },
+  {
+    "id": "agricium",
+    "name": "Agricium",
+    "type": "resource",
+    "description": "Rare mineral essential for advanced electronics manufacturing across the Empire.",
+    "subtype": "Mineral",
+    "effect": "Rare mineral used in advanced electronics manufacturing.",
+    "price": 34.50
+  },
+  {
+    "id": "taranite",
+    "name": "Taranite",
+    "type": "resource",
+    "description": "Precious crystalline mineral with important military and industrial applications.",
+    "subtype": "Mineral",
+    "effect": "Precious crystalline mineral with military and industrial applications.",
+    "price": 42.00
+  },
+  {
+    "id": "borase",
+    "name": "Borase",
+    "type": "resource",
+    "description": "Dense metallic ore used in heavy alloys for ship armor plating.",
+    "subtype": "Mineral",
+    "effect": "Dense metallic ore used in heavy alloys for ship armor.",
+    "price": 12.00
+  },
+  {
+    "id": "bexalite",
+    "name": "Bexalite",
+    "type": "resource",
+    "description": "High-value crystalline mineral used in the production of advanced materials.",
+    "subtype": "Mineral",
+    "effect": "High-value crystalline mineral used in advanced materials.",
+    "price": 38.00
+  },
+  {
+    "id": "diamond",
+    "name": "Diamond",
+    "type": "resource",
+    "description": "Precious crystalline carbon used in luxury goods and high-end cutting tools.",
+    "subtype": "Mineral",
+    "effect": "Precious crystalline carbon used in luxury goods and cutting tools.",
+    "price": 45.00
+  },
+  {
+    "id": "gold",
+    "name": "Gold",
+    "type": "resource",
+    "description": "Precious metal widely used in electronics manufacturing and jewelry.",
+    "subtype": "Mineral",
+    "effect": "Precious metal used in electronics and jewelry.",
+    "price": 38.00
+  },
+  {
+    "id": "titanium",
+    "name": "Titanium",
+    "type": "resource",
+    "description": "Strong, lightweight metal refined from mined ores for use in ship components.",
+    "subtype": "Mineral",
+    "effect": "Strong lightweight metal refined from mined ores for ship components.",
+    "price": 8.00
+  },
+  {
+    "id": "aluminum",
+    "name": "Aluminum",
+    "type": "resource",
+    "description": "Common light metal used extensively in ship and equipment manufacturing.",
+    "subtype": "Mineral",
+    "effect": "Common light metal used extensively in manufacturing.",
+    "price": 1.25
+  },
+  {
+    "id": "inert-material",
+    "name": "Inert Material",
+    "type": "resource",
+    "description": "Waste rock with no economic value, produced as a byproduct of all mining operations.",
+    "subtype": "Waste",
+    "effect": "Waste rock with no economic value. Produced as a byproduct of all mining operations.",
+    "price": 0.10
+  }
+]

@@ -44,6 +44,20 @@ Offset _derivePosition(Map<String, dynamic> data) {
   if (name == 'Area18') return const Offset(0.32, 120);
   if (name == 'Orison') return const Offset(0.46, 210);
 
+  // ---- Moons (orbiting close to their parent planet) ----
+  if (name == 'Arial') return const Offset(0.20, 25);
+  if (name == 'Aberdeen') return const Offset(0.20, 38);
+  if (name == 'Magda') return const Offset(0.16, 22);
+  if (name == 'Ita') return const Offset(0.16, 40);
+  if (name == 'Cellin') return const Offset(0.44, 205);
+  if (name == 'Daymar') return const Offset(0.48, 218);
+  if (name == 'Yela') return const Offset(0.44, 195);
+  if (name == 'Lyria') return const Offset(0.30, 115);
+  if (name == 'Wala') return const Offset(0.34, 128);
+  if (name == 'Calliope') return const Offset(0.58, 295);
+  if (name == 'Clio') return const Offset(0.62, 308);
+  if (name == 'Euterpe') return const Offset(0.58, 315);
+
   // ---- Stations (offset from parent planet by ±20-30°) ----
   if (name == 'Everus Harbor') return const Offset(0.18, 5);   // Hurston -25°
   if (name == 'Baijini Point') return const Offset(0.34, 140); // ArcCorp +20°
@@ -262,7 +276,13 @@ class _StantonMapScreenState extends State<StantonMapScreen> {
   void _load() {
     _db.load().then((_) {
       setState(() {
-        _locations = _db.locations.map((data) {
+        _locations = _db.locations
+            .where((data) {
+              final system = data['system'] as String?;
+              // Show locations in Stanton or legacy locations without a system field
+              return system == null || system == 'Stanton';
+            })
+            .map((data) {
           final rawServices =
               (data['services'] as List<dynamic>?)?.cast<String>() ?? [];
           final services = rawServices.map(_normaliseService).toList();
@@ -287,7 +307,7 @@ class _StantonMapScreenState extends State<StantonMapScreen> {
     if (_loading) {
       return Scaffold(
         appBar: AppBar(
-          title: const Text('Stanton System'),
+          title: const Text('Starmap — Stanton'),
           centerTitle: true,
         ),
         body: const Center(child: CircularProgressIndicator()),
@@ -296,7 +316,7 @@ class _StantonMapScreenState extends State<StantonMapScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Stanton System'),
+        title: const Text('Starmap — Stanton'),
         centerTitle: true,
         actions: [
           IconButton(

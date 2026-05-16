@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:sc_synthesis/core/data/reference_database.dart';
 import 'package:sc_synthesis/features/guide/guide_category_screen.dart';
 import 'package:sc_synthesis/features/guide/stanton_map_screen.dart';
+import 'package:sc_synthesis/features/guide/trade_routes_screen.dart';
+import 'package:sc_synthesis/features/guide/mining_salvage_screen.dart';
 
 /// A category entry for the guide hub.
 class _GuideCategory {
@@ -111,6 +113,14 @@ class _GuideScreenState extends State<GuideScreen> {
       icon: Icons.people,
       iconColor: Color(0xFFFFD700),
       dbCategory: 'factions',
+    ),
+    _GuideCategory(
+      id: 'resources',
+      title: 'Resources',
+      subtitle: 'Community tools, calculators, and references',
+      icon: Icons.link,
+      iconColor: Color(0xFF66BBFF),
+      dbCategory: 'tools',
     ),
   ];
 
@@ -329,6 +339,24 @@ class _GuideScreenState extends State<GuideScreen> {
       return;
     }
 
+    // Special case: Mining opens the dedicated mining/salvage screen
+    if (category.id == 'mining') {
+      Navigator.of(context).push(
+        MaterialPageRoute(builder: (_) => const MiningSalvageScreen()),
+      );
+      return;
+    }
+
+    // Special case: Shopping opens the trade routes screen
+    if (category.id == 'shopping') {
+      Navigator.of(context).push(
+        MaterialPageRoute(builder: (_) => const TradeRoutesScreen()),
+      );
+      return;
+    }
+
+    // Special case: Medical uses trade routes as a medical reference
+
     List<Map<String, dynamic>> data;
     switch (category.dbCategory) {
       case 'factions':
@@ -348,6 +376,9 @@ class _GuideScreenState extends State<GuideScreen> {
         break;
       case 'stores':
         data = _db.stores;
+        break;
+      case 'tools':
+        data = _db.tools;
         break;
       default:
         data = _db.factions;

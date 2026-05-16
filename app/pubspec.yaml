@@ -63,6 +63,9 @@ flutter:
     - assets/data/commodities.json
     - assets/data/components.json
     - assets/data/stores.json
+    - assets/data/tools.json
+    - assets/data/mining_gadgets.json
+    - assets/data/salvage_data.json
     - assets/images/ships/
     - assets/images/ship_image_map.json
 
