@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sc_synthesis/core/data/rust_database_service.dart';
 import 'package:sc_synthesis/core/data/user_ship_data.dart';
 import 'package:sc_synthesis/core/widgets/shimmer_loading.dart';
+import 'package:sc_synthesis/core/widgets/ship_image.dart';
 import 'package:sc_synthesis/src/rust/api/model.dart';
 
 /// Offline-local fleet manager.
@@ -333,19 +334,7 @@ class FleetScreenState extends State<FleetScreen>
         child: Row(
           children: [
             // Ship icon
-            Container(
-              width: 44,
-              height: 44,
-              decoration: BoxDecoration(
-                color: theme.colorScheme.primary.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Icon(
-                Icons.rocket_outlined,
-                color: theme.colorScheme.primary,
-                size: 22,
-              ),
-            ),
+            ShipAvatar(manufacturer: ship.manufacturer, size: 44),
             const SizedBox(width: 14),
             // Name + manufacturer + optional note
             Expanded(
