@@ -14,6 +14,7 @@ class ReferenceDatabase {
   List<Map<String, dynamic>> _locations = [];
   List<Map<String, dynamic>> _commodities = [];
   List<Map<String, dynamic>> _components = [];
+  List<Map<String, dynamic>> _stores = [];
   bool _loaded = false;
 
   bool get isLoaded => _loaded;
@@ -29,6 +30,7 @@ class ReferenceDatabase {
       rootBundle.loadString('assets/data/locations.json'),
       rootBundle.loadString('assets/data/commodities.json'),
       rootBundle.loadString('assets/data/components.json'),
+      rootBundle.loadString('assets/data/stores.json'),
     ]);
 
     _factions = List<Map<String, dynamic>>.from(
@@ -51,6 +53,10 @@ class ReferenceDatabase {
       (json.decode(futures[4]) as List<dynamic>)
           .map((e) => e as Map<String, dynamic>),
     );
+    _stores = List<Map<String, dynamic>>.from(
+      (json.decode(futures[5]) as List<dynamic>)
+          .map((e) => e as Map<String, dynamic>),
+    );
 
     _loaded = true;
   }
@@ -66,6 +72,8 @@ class ReferenceDatabase {
       List.unmodifiable(_commodities);
   List<Map<String, dynamic>> get components =>
       List.unmodifiable(_components);
+  List<Map<String, dynamic>> get stores =>
+      List.unmodifiable(_stores);
 
   /// Search across all categories by name, type, or location planet.
   /// Returns a flat list of maps with the category name stored under `_category`.
@@ -102,6 +110,13 @@ class ReferenceDatabase {
           (c['category'] as String).toLowerCase().contains(q) ||
           (c['manufacturer'] as String).toLowerCase().contains(q)) {
         results.add({...c, '_category': 'components'});
+      }
+    }
+    for (final s in _stores) {
+      if ((s['name'] as String).toLowerCase().contains(q) ||
+          (s['location'] as String).toLowerCase().contains(q) ||
+          (s['planet'] as String).toLowerCase().contains(q)) {
+        results.add({...s, '_category': 'stores'});
       }
     }
 
