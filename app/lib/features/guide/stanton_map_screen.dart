@@ -705,6 +705,7 @@ class _StantonMapPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
+    _drawnLabelBounds.clear();
     _drawStarfield(canvas, size);
     _drawStantonStar(canvas, size);
     _drawOrbits(canvas, size);
@@ -990,10 +991,12 @@ class _StantonMapPainter extends CustomPainter {
     canvas.drawCircle(pos, r, Paint()..color = color);
     _drawLabel(canvas, pos, name, color, r + 6);
   }
+  // -----------------------------------------------------------------------
+  // Label drawing with collision detection
+  // -----------------------------------------------------------------------
 
-  // -----------------------------------------------------------------------
-  // Label drawing
-  // -----------------------------------------------------------------------
+  final List<Rect> _drawnLabelBounds = [];
+
   void _drawLabel(
     Canvas canvas,
     Offset pos,
@@ -1001,9 +1004,12 @@ class _StantonMapPainter extends CustomPainter {
     Color color,
     double offsetY,
   ) {
+    const double fontSize = 10;
+    const double padding = 3;
+
     final textStyle = TextStyle(
       color: color.withValues(alpha: 0.85),
-      fontSize: 10,
+      fontSize: fontSize,
       fontWeight: FontWeight.w500,
       fontFamily: 'monospace',
     );
@@ -1013,15 +1019,55 @@ class _StantonMapPainter extends CustomPainter {
       textDirection: TextDirection.ltr,
     )..layout();
 
-    final labelPos = Offset(
-      pos.dx - builder.width / 2,
-      pos.dy + offsetY,
+    final textW = builder.width;
+    const textH = fontSize + 4;
+
+    // Try label positions in order of preference until one doesn't overlap
+    final anchors = <Offset>[
+      // 1. Below center (default)
+      Offset(pos.dx - textW / 2, pos.dy + offsetY),
+      // 2. Above center
+      Offset(pos.dx - textW / 2, pos.dy - offsetY - textH),
+      // 3. Right
+      Offset(pos.dx + offsetY, pos.dy - textH / 2),
+      // 4. Left
+      Offset(pos.dx - offsetY - textW, pos.dy - textH / 2),
+      // 5. Above-right
+      Offset(pos.dx + offsetY * 0.5, pos.dy - offsetY - textH),
+      // 6. Above-left
+      Offset(pos.dx - offsetY * 0.5 - textW, pos.dy - offsetY - textH),
+    ];
+
+    Offset? chosenPos;
+    for (final anchor in anchors) {
+      final labelRect = Rect.fromLTWH(
+        anchor.dx - padding,
+        anchor.dy - padding,
+        textW + padding * 2,
+        textH + padding * 2,
+      );
+      final overlaps = _drawnLabelBounds.any((r) => r.overlaps(labelRect));
+      if (!overlaps) {
+        chosenPos = anchor;
+        break;
+      }
+    }
+
+    // Fallback: use default position even if overlapping
+    chosenPos ??= anchors.first;
+
+    final labelRect = Rect.fromLTWH(
+      chosenPos.dx - padding,
+      chosenPos.dy - padding,
+      textW + padding * 2,
+      textH + padding * 2,
     );
+    _drawnLabelBounds.add(labelRect);
 
     // Subtle shadow behind text
     final shadowStyle = TextStyle(
       color: Colors.black.withValues(alpha: 0.6),
-      fontSize: 10,
+      fontSize: fontSize,
       fontWeight: FontWeight.w500,
       fontFamily: 'monospace',
     );
@@ -1031,8 +1077,8 @@ class _StantonMapPainter extends CustomPainter {
       textDirection: TextDirection.ltr,
     )..layout();
 
-    shadowBuilder.paint(canvas, labelPos + const Offset(0.5, 0.5));
-    builder.paint(canvas, labelPos);
+    shadowBuilder.paint(canvas, chosenPos + const Offset(0.5, 0.5));
+    builder.paint(canvas, chosenPos);
   }
 
   @override
