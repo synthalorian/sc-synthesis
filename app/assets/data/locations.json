@@ -1,0 +1,277 @@
+[
+  {
+    "id": "hurston",
+    "name": "Hurston",
+    "type": "planet",
+    "planet": "Hurston",
+    "orbit": 0,
+    "description": "The fourth planet of the Stanton system, owned and operated by Hurston Dynamics. An arid industrial world with a harsh environment, marked by massive factories, refineries, and mining operations. Lorville is the primary landing zone, a sprawling industrial city dominated by the Hurston Dynamics headquarters tower. The surface is scarred by centuries of resource extraction.",
+    "services": [
+      "landing", "cargo", "shipShop", "weaponShop", "armorShop", "medical", "bar"
+    ]
+  },
+  {
+    "id": "lorville",
+    "name": "Lorville",
+    "type": "planet",
+    "planet": "Hurston",
+    "orbit": 0,
+    "description": "The primary city and landing zone on Hurston. A sprawling industrial metropolis dominated by the Hurston Dynamics corporate headquarters. Features the Teasa Spaceport for ship spawning and storage, the HD Showcase for weapons and armor, and various industrial facilities. Notable districts include the Central Business District, the residential areas, and the industrial outskirts.",
+    "services": [
+      "landing", "cargo", "shipShop", "weaponShop", "armorShop", "medical", "bar", "refining"
+    ]
+  },
+  {
+    "id": "microtech",
+    "name": "microTech",
+    "type": "planet",
+    "planet": "microTech",
+    "orbit": 1,
+    "description": "The third planet of the Stanton system, a frozen world owned by the microTech corporation. The planet's surface is covered in snow and ice, with temperatures well below freezing. New Babbage, the primary landing zone, is built in a protected valley and features a blend of modern architecture with natural scenery. The planet is known for its cutting-edge technology sector.",
+    "services": [
+      "landing", "cargo", "shipShop", "weaponShop", "armorShop", "medical", "bar"
+    ]
+  },
+  {
+    "id": "new-babbage",
+    "name": "New Babbage",
+    "type": "planet",
+    "planet": "microTech",
+    "orbit": 1,
+    "description": "The corporate headquarters and primary city of microTech, nestled in a sheltered valley on the frozen planet. New Babbage features the Commons area with shopping, the Aspire Grand hotel, and the MT Showcase for equipment. The city connects to the surface via the transit system and features an underground spaceport.",
+    "services": [
+      "landing", "cargo", "shipShop", "weaponShop", "armorShop", "medical", "bar"
+    ]
+  },
+  {
+    "id": "arccorp",
+    "name": "ArcCorp",
+    "type": "planet",
+    "planet": "ArcCorp",
+    "orbit": 2,
+    "description": "The second planet of the Stanton system, completely urbanized by ArcCorp Industries. The entire surface is covered by a single massive city under atmospheric domes and artificial structures. Area18 is the primary landing zone, a dense metropolitan hub with manufacturing facilities, commercial districts, and residential sectors stretching for thousands of kilometers.",
+    "services": [
+      "landing", "cargo", "shipShop", "weaponShop", "armorShop", "medical", "bar"
+    ]
+  },
+  {
+    "id": "area18",
+    "name": "Area18",
+    "type": "planet",
+    "planet": "ArcCorp",
+    "orbit": 2,
+    "description": "The primary landing zone on ArcCorp. Area18 is a bustling metropolis with towering skyscrapers, neon-lit streets, and constant aerial traffic. Features the Plaza shopping area, the ArcCorp Showcase, and various corporate facilities. The spaceport provides full ship services.",
+    "services": [
+      "landing", "cargo", "shipShop", "weaponShop", "armorShop", "medical", "bar"
+    ]
+  },
+  {
+    "id": "crusader",
+    "name": "Crusader",
+    "type": "planet",
+    "planet": "Crusader",
+    "orbit": 3,
+    "description": "The first and largest planet of the Stanton system, a gas giant owned by Crusader Industries. The planet features a vibrant atmosphere with multiple cloud bands and storms. Crusader's floating platforms house industrial facilities and the company's aerospace manufacturing operations. Orison is the primary platform city suspended in the upper atmosphere.",
+    "services": [
+      "landing", "cargo", "shipShop", "weaponShop", "armorShop", "medical", "bar"
+    ]
+  },
+  {
+    "id": "orison",
+    "name": "Orison",
+    "type": "planet",
+    "planet": "Crusader",
+    "orbit": 3,
+    "description": "The floating city of Orison, suspended in Crusader's upper atmosphere on massive floating platforms. Home to Crusader Industries' headquarters and ship manufacturing facilities. Features open-air platforms with breathtaking views of the gas giant below. The city includes shopping, ship showrooms, and industrial facilities connected by a network of skywalks and trams.",
+    "services": [
+      "landing", "cargo", "shipShop", "weaponShop", "armorShop", "medical", "bar", "refining"
+    ]
+  },
+  {
+    "id": "port-tressler",
+    "name": "Port Tressler",
+    "type": "station",
+    "planet": "microTech",
+    "orbit": 1,
+    "description": "The orbital station serving microTech. Positioned in low orbit above New Babbage, Port Tressler is a major transit hub for the planet. Features landing services, cargo facilities, ship shops, weapon and armor stores, medical facilities, and a bar. The primary gateway for travelers arriving at or departing from microTech.",
+    "services": [
+      "landing", "refining", "cargo", "shipShop", "weaponShop", "armorShop", "medical", "bar"
+    ]
+  },
+  {
+    "id": "everus-harbor",
+    "name": "Everus Harbor",
+    "type": "station",
+    "planet": "Hurston",
+    "orbit": 0,
+    "description": "The orbital station serving Hurston. Everus Harbor is a utilitarian station reflecting the industrial character of Hurston below. Provides full services including landing platforms, cargo handling, ship sales, equipment shops, and medical facilities. A key refueling stop for ships operating in the Hurston area.",
+    "services": [
+      "landing", "refining", "cargo", "shipShop", "weaponShop", "armorShop", "medical", "bar"
+    ]
+  },
+  {
+    "id": "baijini-point",
+    "name": "Baijini Point",
+    "type": "station",
+    "planet": "ArcCorp",
+    "orbit": 2,
+    "description": "The orbital station serving ArcCorp. Positioned above the planet-wide city, Baijini Point handles the massive traffic flow to and from ArcCorp's surface. Offers comprehensive services including cargo facilities, ship sales, equipment shopping, and medical care. Named after the historic Baijini trading network.",
+    "services": [
+      "landing", "refining", "cargo", "shipShop", "weaponShop", "armorShop", "medical", "bar"
+    ]
+  },
+  {
+    "id": "seraphim-station",
+    "name": "Seraphim Station",
+    "type": "station",
+    "planet": "Crusader",
+    "orbit": 3,
+    "description": "The orbital station serving Crusader. Seraphim Station orbits above the gas giant, serving as the primary spaceport for visitors not heading to Orison's atmo platforms. Features full services including landing bays, cargo processing, ship showrooms, equipment stores, and medical facilities.",
+    "services": [
+      "landing", "refining", "cargo", "shipShop", "weaponShop", "armorShop", "medical", "bar"
+    ]
+  },
+  {
+    "id": "rest-stop-hur",
+    "name": "R&R HUR (Hurston Orbit)",
+    "type": "restStop",
+    "planet": "Hurston",
+    "orbit": 0,
+    "description": "A Rest & Relaxation station in Hurston's orbit. These standardized stations provide essential services for travelers including refueling, basic supplies, and a place to rest. Smaller than major orbital stations but strategically located for convenient access.",
+    "services": [
+      "landing", "cargo", "weaponShop", "armorShop", "medical", "bar"
+    ]
+  },
+  {
+    "id": "rest-stop-mic",
+    "name": "R&R MIC (microTech Orbit)",
+    "type": "restStop",
+    "planet": "microTech",
+    "orbit": 1,
+    "description": "A Rest & Relaxation station in microTech's orbit. Provides refueling, basic supplies, and rest facilities. A convenient stopover for ships operating in the microTech area without needing to descend to the surface or visit Port Tressler.",
+    "services": [
+      "landing", "cargo", "weaponShop", "armorShop", "medical", "bar"
+    ]
+  },
+  {
+    "id": "rest-stop-arc",
+    "name": "R&R ARC (ArcCorp Orbit)",
+    "type": "restStop",
+    "planet": "ArcCorp",
+    "orbit": 2,
+    "description": "A Rest & Relaxation station in ArcCorp's orbit. Serves as a convenient mid-point for logistics and a quick stop for pilots needing supplies without entering ArcCorp's busy airspace.",
+    "services": [
+      "landing", "cargo", "weaponShop", "armorShop", "medical", "bar"
+    ]
+  },
+  {
+    "id": "rest-stop-cru",
+    "name": "R&R CRU (Crusader Orbit)",
+    "type": "restStop",
+    "planet": "Crusader",
+    "orbit": 3,
+    "description": "A Rest & Relaxation station in Crusader's orbit. Provides standard services for pilots transiting through the Crusader area. Often used as a staging point for operations in the wider Stanton system.",
+    "services": [
+      "landing", "cargo", "weaponShop", "armorShop", "medical", "bar"
+    ]
+  },
+  {
+    "id": "lagrange-hur-l1",
+    "name": "HUR-L1 Lagrange Station",
+    "type": "lagrange",
+    "planet": "Hurston",
+    "orbit": null,
+    "description": "Lagrange point station at Hurston's L1 point. These deep-space stations serve as navigation hubs and refueling stops for ships traveling between planets. Features cargo facilities and limited services. Located at the gravitational equilibrium point between Hurston and Stanton's sun.",
+    "services": [
+      "landing", "refining", "cargo", "weaponShop", "armorShop", "medical", "bar"
+    ]
+  },
+  {
+    "id": "lagrange-hur-l2",
+    "name": "HUR-L2 Lagrange Station",
+    "type": "lagrange",
+    "planet": "Hurston",
+    "orbit": null,
+    "description": "Lagrange point station at Hurston's L2 point. A deep-space station providing refueling and cargo services for ships operating on the far side of Hurston's orbit. Less trafficked than L1 but still maintains essential services.",
+    "services": [
+      "landing", "refining", "cargo", "weaponShop", "armorShop", "medical", "bar"
+    ]
+  },
+  {
+    "id": "lagrange-mic-l1",
+    "name": "MIC-L1 Lagrange Station",
+    "type": "lagrange",
+    "planet": "microTech",
+    "orbit": null,
+    "description": "Lagrange point station at microTech's L1 point. Serves as a deep-space navigation and refueling hub for the microTech orbital region. Features cargo and refining services for ships operating in the area.",
+    "services": [
+      "landing", "refining", "cargo", "weaponShop", "armorShop", "medical", "bar"
+    ]
+  },
+  {
+    "id": "lagrange-mic-l2",
+    "name": "MIC-L2 Lagrange Station",
+    "type": "lagrange",
+    "planet": "microTech",
+    "orbit": null,
+    "description": "Lagrange point station at microTech's L2 point. A more remote deep-space station providing essential services for ships operating beyond microTech's main traffic lanes. Popular with miners and salvagers working the outer asteroid fields.",
+    "services": [
+      "landing", "refining", "cargo", "weaponShop", "armorShop", "medical", "bar"
+    ]
+  },
+  {
+    "id": "lagrange-arc-l1",
+    "name": "ARC-L1 Lagrange Station",
+    "type": "lagrange",
+    "planet": "ArcCorp",
+    "orbit": null,
+    "description": "Lagrange point station at ArcCorp's L1 point. A deep-space hub serving the high traffic corridor around ArcCorp. Features comprehensive cargo and refining services to support the massive industrial output of the planet below.",
+    "services": [
+      "landing", "refining", "cargo", "weaponShop", "armorShop", "medical", "bar"
+    ]
+  },
+  {
+    "id": "lagrange-arc-l2",
+    "name": "ARC-L2 Lagrange Station",
+    "type": "lagrange",
+    "planet": "ArcCorp",
+    "orbit": null,
+    "description": "Lagrange point station at ArcCorp's L2 point. Provides refueling and cargo services on the far side of ArcCorp's orbit. A strategic stop for ships avoiding the congestion around ArcCorp's main shipping lanes.",
+    "services": [
+      "landing", "refining", "cargo", "weaponShop", "armorShop", "medical", "bar"
+    ]
+  },
+  {
+    "id": "lagrange-cru-l1",
+    "name": "CRU-L1 Lagrange Station",
+    "type": "lagrange",
+    "planet": "Crusader",
+    "orbit": null,
+    "description": "Lagrange point station at Crusader's L1 point. One of three Lagrange stations serving the Crusader gas giant region. A major deep-space hub for the busy Crusader shipping lanes, connecting traffic to and from the other planets.",
+    "services": [
+      "landing", "refining", "cargo", "weaponShop", "armorShop", "medical", "bar"
+    ]
+  },
+  {
+    "id": "lagrange-cru-l2",
+    "name": "CRU-L2 Lagrange Station",
+    "type": "lagrange",
+    "planet": "Crusader",
+    "orbit": null,
+    "description": "Lagrange point station at Crusader's L2 point. A secondary deep-space station serving the Crusader region. Popular with miners due to proximity to the Belt alpha asteroid cluster.",
+    "services": [
+      "landing", "refining", "cargo", "weaponShop", "armorShop", "medical", "bar"
+    ]
+  },
+  {
+    "id": "lagrange-cru-l3",
+    "name": "CRU-L3 Lagrange Station",
+    "type": "lagrange",
+    "planet": "Crusader",
+    "orbit": null,
+    "description": "Lagrange point station at Crusader's L3 point. The most remote of Crusader's Lagrange stations, positioned at the far point of the gas giant's orbit. A quiet outpost that serves as a waypoint for ships traveling to the Pyro system jump point.",
+    "services": [
+      "landing", "refining", "cargo", "weaponShop", "armorShop", "medical", "bar"
+    ]
+  }
+]

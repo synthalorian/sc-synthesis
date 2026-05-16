@@ -1,0 +1,397 @@
+[
+  {
+    "id": "uee-navy",
+    "name": "UEE Navy",
+    "description": "The naval arm of the United Empire of Earth, responsible for military defense of UEE space. Operates capital ships, patrols border systems, and engages in conflict against Vanduul and pirate threats. The Navy is the primary military force protecting human civilization.",
+    "type": "govt",
+    "slug": "uee-navy",
+    "primaryLocation": "Stanton System",
+    "reputationTiers": [
+      {
+        "name": "Neutral",
+        "description": "No significant interaction with UEE Navy",
+        "benefits": "Access to basic legal missions"
+      },
+      {
+        "name": "Positive",
+        "description": "Assisted Navy operations and completed lawful missions",
+        "benefits": "Access to Navy patrol contracts, increased mission pay"
+      },
+      {
+        "name": "Friendly",
+        "description": "Demonstrated consistent support for UEE military operations",
+        "benefits": "Elite combat missions, access to restricted military areas, Navy escort contracts"
+      },
+      {
+        "name": "Honored",
+        "description": "Exemplary service to the UEE Navy and its interests",
+        "benefits": "Premium pay rates, exclusive ship requisitions, Navy commendation rewards"
+      }
+    ]
+  },
+  {
+    "id": "advocacy",
+    "name": "Advocacy",
+    "description": "The UEE's federal law enforcement agency, responsible for investigating crimes across UEE space. The Advocacy handles high-priority bounties, smuggling interdiction, and criminal investigations. They operate with broad jurisdiction and significant resources.",
+    "type": "govt",
+    "slug": "advocacy",
+    "primaryLocation": "Stanton System",
+    "reputationTiers": [
+      {
+        "name": "Neutral",
+        "description": "No criminal record or Advocacy involvement",
+        "benefits": "Access to standard bounty hunting licenses"
+      },
+      {
+        "name": "Positive",
+        "description": "Assisted Advocacy investigations and bounty operations",
+        "benefits": "Increased bounty payouts, access to restricted bounties"
+      },
+      {
+        "name": "Friendly",
+        "description": "Trusted auxiliary to Advocacy operations",
+        "benefits": "High-value target bounties, Advocacy intel access"
+      },
+      {
+        "name": "Honored",
+        "description": "Elite bounty hunter status recognized by the Advocacy",
+        "benefits": "Maximum bounty rewards, exclusive ship components, Advocacy commendation"
+      }
+    ]
+  },
+  {
+    "id": "hurston-dynamics",
+    "name": "Hurston Dynamics",
+    "description": "The massive industrial conglomerate that owns and operates the planet Hurston. HD is known for aggressive resource extraction, weapons manufacturing (Ballistic and Energy weapons), and a ruthless corporate culture. Their security forces maintain order through overwhelming force. The company is a major employer in the Stanton system.",
+    "type": "corp",
+    "slug": "hurston-dynamics",
+    "primaryLocation": "Hurston, Stanton System",
+    "reputationTiers": [
+      {
+        "name": "Neutral",
+        "description": "Standard contractor with Hurston Dynamics",
+        "benefits": "Access to basic Hurston work contracts"
+      },
+      {
+        "name": "Positive",
+        "description": "Reliable contractor who supports HD operations",
+        "benefits": "Higher-paying industrial missions, Hurston Security access"
+      },
+      {
+        "name": "Friendly",
+        "description": "Valued associate of Hurston Dynamics",
+        "benefits": "Exclusive contracts, HD weapon discounts, restricted area access"
+      },
+      {
+        "name": "Honored",
+        "description": "Trusted partner to the Hurston board of directors",
+        "benefits": "Maximum mission rewards, VIP warehouse access, elite corporate contracts"
+      }
+    ]
+  },
+  {
+    "id": "microtech",
+    "name": "microTech",
+    "description": "The premier technology and computing corporation in the UEE, headquartered on the frozen planet microTech. The company dominates the personal computing, AI, and software markets. Their corporate culture is clean, precise, and security-conscious. microTech maintains strict control over their planetary operations.",
+    "type": "corp",
+    "slug": "microtech",
+    "primaryLocation": "microTech, Stanton System",
+    "reputationTiers": [
+      {
+        "name": "Neutral",
+        "description": "Independent contractor for microTech",
+        "benefits": "Access to basic tech transport and support missions"
+      },
+      {
+        "name": "Positive",
+        "description": "Reliable service provider for microTech",
+        "benefits": "Better mission payouts, access to sensitive cargo runs"
+      },
+      {
+        "name": "Friendly",
+        "description": "Trusted partner to microTech operations",
+        "benefits": "Premium cargo contracts, microTech Security cooperation, exclusive tech access"
+      },
+      {
+        "name": "Honored",
+        "description": "Elite contractor in microTech's ecosystem",
+        "benefits": "Maximum rewards, VIP shopping access, corporate data access"
+      }
+    ]
+  },
+  {
+    "id": "arccorp",
+    "name": "ArcCorp",
+    "description": "The megacorporation that built and governs the city-planet ArcCorp. Specializing in manufacturing, ship components, and raw material processing. ArcCorp's planet is entirely urbanized with manufacturing districts under sealed domes. The company controls all commerce and security on the planet.",
+    "type": "corp",
+    "slug": "arccorp",
+    "primaryLocation": "ArcCorp, Stanton System",
+    "reputationTiers": [
+      {
+        "name": "Neutral",
+        "description": "Independent operator on ArcCorp",
+        "benefits": "Access to basic industrial missions"
+      },
+      {
+        "name": "Positive",
+        "description": "Consistent contributor to ArcCorp operations",
+        "benefits": "Higher-tier manufacturing contracts, component discounts"
+      },
+      {
+        "name": "Friendly",
+        "description": "Valued partner of ArcCorp Industries",
+        "benefits": "Exclusive manufacturing access, premium component pricing"
+      },
+      {
+        "name": "Honored",
+        "description": "Key ally in ArcCorp's industrial machine",
+        "benefits": "Maximum mission payouts, exclusive factory access, VIP cargo routes"
+      }
+    ]
+  },
+  {
+    "id": "crusader-industries",
+    "name": "Crusader Industries",
+    "description": "The aerospace manufacturing giant based in Crusader's atmosphere on the gas giant Crusader. Known for producing iconic civilian and military ships including the Starfarer, Mercury Star Runner, Hercules series, and the Ares series. Crusader is privately held and known for its employee-friendly corporate culture and high-quality ship manufacturing.",
+    "type": "corp",
+    "slug": "crusader-industries",
+    "primaryLocation": "Crusader, Stanton System",
+    "reputationTiers": [
+      {
+        "name": "Neutral",
+        "description": "Independent contractor with Crusader",
+        "benefits": "Access to basic transport missions"
+      },
+      {
+        "name": "Positive",
+        "description": "Reliable partner for Crusader operations",
+        "benefits": "Ship part discounts, better transport contracts"
+      },
+      {
+        "name": "Friendly",
+        "description": "Trusted associate of Crusader Industries",
+        "benefits": "Ship purchase discounts, exclusive transport routes, ship testing contracts"
+      },
+      {
+        "name": "Honored",
+        "description": "Esteemed partner in Crusader's aerospace legacy",
+        "benefits": "Maximum ship purchase discounts, limited-edition ship access, factory tour access"
+      }
+    ]
+  },
+  {
+    "id": "ninetails",
+    "name": "Ninetails",
+    "description": "A notorious outlaw syndicate operating throughout the Stanton and Pyro systems. Ninetails is heavily involved in piracy, smuggling, extortion, and illegal trade. They are the primary criminal faction in the Stanton system, frequently engaging in shootouts with security forces and other gangs.",
+    "type": "outlaw",
+    "slug": "ninetails",
+    "primaryLocation": "Pyro System, Stanton System",
+    "reputationTiers": [
+      {
+        "name": "Hostile",
+        "description": "Target for Ninetails operations",
+        "benefits": "Actively hunted by Ninetails forces"
+      },
+      {
+        "name": "Neutral",
+        "description": "Uninvolved with Ninetails activities",
+        "benefits": "No active targeting"
+      },
+      {
+        "name": "Favorable",
+        "description": "Demonstrated willingness to work with Ninetails",
+        "benefits": "Access to smuggling missions, illegal cargo contracts"
+      },
+      {
+        "name": "Criminal Associate",
+        "description": "Trusted partner in Ninetails operations",
+        "benefits": "Access to high-value heists, contraband supply lines, Ninetails safe zones"
+      },
+      {
+        "name": "Kingpin",
+        "description": "Elite member of the Ninetails syndicate",
+        "benefits": "Maximum illegal mission rewards, exclusive black market access, Ninetails protection"
+      }
+    ]
+  },
+  {
+    "id": "xenothreat",
+    "name": "XenoThreat",
+    "description": "A human supremacist extremist group that believes aliens threaten human civilization. XenoThreat engages in terrorist attacks, weapons trafficking, and inciting conflict between humans and alien species such as the Xi'an and Banu. They operate from hidden bases and criminal networks.",
+    "type": "outlaw",
+    "slug": "xenothreat",
+    "primaryLocation": "Stanton System, Pyro System",
+    "reputationTiers": [
+      {
+        "name": "Hostile",
+        "description": "Enemy of XenoThreat",
+        "benefits": "Targeted by XenoThreat operatives"
+      },
+      {
+        "name": "Neutral",
+        "description": "Unknown or uninvolved with XenoThreat",
+        "benefits": "No direct interaction"
+      },
+      {
+        "name": "Favorable",
+        "description": "Sympathetic to XenoThreat's cause",
+        "benefits": "Access to radical faction missions, weapons procurement"
+      },
+      {
+        "name": "Trusted",
+        "description": "Active supporter of XenoThreat operations",
+        "benefits": "High-level terror contracts, illegal weapon access"
+      }
+    ]
+  },
+  {
+    "id": "blades",
+    "name": "The Blades",
+    "description": "A brutal outlaw gang primarily operating in the Pyro system. Known for their aggressive piracy tactics, the Blades are heavily armed and prioritize combat capability over subtlety. They are one of the dominant criminal forces in Pyro and frequently clash with other gangs and law enforcement.",
+    "type": "outlaw",
+    "slug": "blades",
+    "primaryLocation": "Pyro System",
+    "reputationTiers": [
+      {
+        "name": "Hostile",
+        "description": "Enemy combatant to the Blades",
+        "benefits": "Engaged on sight by Blades patrols"
+      },
+      {
+        "name": "Neutral",
+        "description": "Uninvolved with Blade operations",
+        "benefits": "No special interaction"
+      },
+      {
+        "name": "Favorable",
+        "description": "Shown willingness to cooperate with the Blades",
+        "benefits": "Access to piracy missions, stolen goods fencing"
+      },
+      {
+        "name": "Blooded",
+        "description": "Proven fighter allied with the Blades",
+        "benefits": "High-risk high-reward raids, Blade safe houses"
+      }
+    ]
+  },
+  {
+    "id": "citizens-for-pyro",
+    "name": "Citizens for Pyro",
+    "description": "A civilian defense and self-governance organization operating in the lawless Pyro system. CfP seeks to establish order and protection for settlers outside UEE jurisdiction. They provide mutual defense, resource sharing, and community building in one of the most dangerous systems in the known galaxy.",
+    "type": "outlaw",
+    "slug": "citizens-for-pyro",
+    "primaryLocation": "Pyro System",
+    "reputationTiers": [
+      {
+        "name": "Neutral",
+        "description": "Independent operator in Pyro",
+        "benefits": "Access to basic settlement defense missions"
+      },
+      {
+        "name": "Positive",
+        "description": "Assisted Pyro settlements against threats",
+        "benefits": "Increased mission payouts, supply access"
+      },
+      {
+        "name": "Friendly",
+        "description": "Defender of Pyro's civilian population",
+        "benefits": "Safe passage through CfP territories, exclusive defense contracts"
+      },
+      {
+        "name": "Honored",
+        "description": "Legendary protector of the Pyro frontier",
+        "benefits": "Maximum rewards, CfP council access, settlement leadership roles"
+      }
+    ]
+  },
+  {
+    "id": "cdf",
+    "name": "Civilian Defense Force",
+    "description": "A grassroots mercenary and militia organization that provides security services to civilian settlements, convoys, and facilities. The CDF operates in systems where UEE presence is limited, offering protection to civilians who cannot rely on official military support. They are particularly active in the Stanton and Pyro systems.",
+    "type": "mercenary",
+    "slug": "cdf",
+    "primaryLocation": "Stanton System, Pyro System",
+    "reputationTiers": [
+      {
+        "name": "Neutral",
+        "description": "Independent contractor",
+        "benefits": "Access to basic security contracts"
+      },
+      {
+        "name": "Positive",
+        "description": "Reliable security operative",
+        "benefits": "Higher pay for defense missions, equipment access"
+      },
+      {
+        "name": "Friendly",
+        "description": "Trusted defender of civilian interests",
+        "benefits": "Premium defense contracts, CDF network access, exclusive gear"
+      },
+      {
+        "name": "Honored",
+        "description": "Legendary defender in the CDF",
+        "benefits": "Maximum mission rewards, CDF command roles, elite equipment"
+      }
+    ]
+  },
+  {
+    "id": "hurston-security",
+    "name": "Hurston Security",
+    "description": "The private security force employed by Hurston Dynamics to maintain order on Hurston and protect company assets. Known for aggressive tactics and zero-tolerance policies. Hurston Security operates planetary patrols, facility defense, and corporate enforcement. They are equipped with heavy weaponry and armored vehicles.",
+    "type": "mercenary",
+    "slug": "hurston-security",
+    "primaryLocation": "Hurston, Stanton System",
+    "reputationTiers": [
+      {
+        "name": "Neutral",
+        "description": "Independent operative on Hurston",
+        "benefits": "Access to basic security missions"
+      },
+      {
+        "name": "Positive",
+        "description": "Helped maintain order on Hurston",
+        "benefits": "Higher-tier security contracts, weapon access"
+      },
+      {
+        "name": "Friendly",
+        "description": "Trusted auxiliary to Hurston Security",
+        "benefits": "Exclusive enforcement contracts, restricted area access, HD equipment discounts"
+      },
+      {
+        "name": "Honored",
+        "description": "Elite security asset for Hurston",
+        "benefits": "Maximum pay, VIP protection contracts, permanent security clearance"
+      }
+    ]
+  },
+  {
+    "id": "microtech-security",
+    "name": "microTech Security",
+    "description": "The corporate security division of microTech, responsible for protecting microTech's facilities, data centers, and personnel on their corporate campus and throughout Stanton. Known for professionalism, high-tech surveillance equipment, and precise tactical operations. They maintain a clean, corporate-precision approach to security.",
+    "type": "mercenary",
+    "slug": "microtech-security",
+    "primaryLocation": "microTech, Stanton System",
+    "reputationTiers": [
+      {
+        "name": "Neutral",
+        "description": "Independent contractor",
+        "benefits": "Access to basic security patrols"
+      },
+      {
+        "name": "Positive",
+        "description": "Demonstrated competence in security operations",
+        "benefits": "Better contracts, tech equipment access"
+      },
+      {
+        "name": "Friendly",
+        "description": "Valued security partner for microTech",
+        "benefits": "Premium security contracts, advanced tech access, microTech campus clearance"
+      },
+      {
+        "name": "Honored",
+        "description": "Trusted protector of microTech assets",
+        "benefits": "Maximum rewards, executive protection, full facility access"
+      }
+    ]
+  }
+]

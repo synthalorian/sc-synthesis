@@ -57,6 +57,10 @@ flutter:
   uses-material-design: true
   assets:
     - assets/data/ships.json
+    - assets/data/factions.json
+    - assets/data/missions.json
+    - assets/data/locations.json
+    - assets/data/commodities.json
 
 flutter_launcher_icons:
   android: true

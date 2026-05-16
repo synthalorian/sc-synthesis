@@ -70,7 +70,7 @@ class SettingsScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  'v0.2.0',
+                  'v0.3.0',
                   style: theme.textTheme.bodySmall?.copyWith(
                     color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
                   ),

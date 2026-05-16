@@ -1,0 +1,368 @@
+[
+  {
+    "id": "bounty-vlrt",
+    "name": "VLRT Bounty (Very Low Risk Target)",
+    "type": "bounty_hunter",
+    "description": "Track and eliminate a very low risk criminal target. These bounties typically involve new criminals with minor infractions and minimal combat capability. Suitable for novice bounty hunters flying starter ships.",
+    "minRepTier": "Neutral",
+    "reputationRequired": {},
+    "rewardRange": {
+      "min": 4000,
+      "max": 6000
+    },
+    "locations": ["Stanton System", "Hurston", "microTech", "ArcCorp", "Crusader"]
+  },
+  {
+    "id": "bounty-lrt",
+    "name": "LRT Bounty (Low Risk Target)",
+    "type": "bounty_hunter",
+    "description": "Track and eliminate a low risk criminal target. Targets are typically flying light fighters or small utility ships. Requires basic combat proficiency and a capable light fighter.",
+    "minRepTier": "Neutral",
+    "reputationRequired": {},
+    "rewardRange": {
+      "min": 6500,
+      "max": 9500
+    },
+    "locations": ["Stanton System", "Hurston", "microTech", "ArcCorp", "Crusader"]
+  },
+  {
+    "id": "bounty-mrt",
+    "name": "MRT Bounty (Medium Risk Target)",
+    "type": "bounty_hunter",
+    "description": "Track and eliminate a medium risk criminal target. These criminals fly medium fighters or gunships and often travel with an escort. Requires a well-equipped fighter and decent combat experience.",
+    "minRepTier": "Positive",
+    "reputationRequired": {
+      "advocacy": "Positive"
+    },
+    "rewardRange": {
+      "min": 10000,
+      "max": 15000
+    },
+    "locations": ["Stanton System", "Hurston", "microTech", "ArcCorp", "Crusader"]
+  },
+  {
+    "id": "bounty-hrt",
+    "name": "HRT Bounty (High Risk Target)",
+    "type": "bounty_hunter",
+    "description": "Track and eliminate a high risk criminal target. Targets fly heavy fighters or medium combat ships and are typically well-armed and escorted. Requires significant combat skill and a heavy fighter or medium ship.",
+    "minRepTier": "Friendly",
+    "reputationRequired": {
+      "advocacy": "Friendly"
+    },
+    "rewardRange": {
+      "min": 18000,
+      "max": 25000
+    },
+    "locations": ["Stanton System", "Hurston", "microTech", "ArcCorp", "Crusader"]
+  },
+  {
+    "id": "bounty-vhrt",
+    "name": "VHRT Bounty (Very High Risk Target)",
+    "type": "bounty_hunter",
+    "description": "Track and eliminate a very high risk criminal target. These are hardened criminals piloting heavy combat ships with multiple escorts. Requires advanced combat skills and a heavy fighter or gunship.",
+    "minRepTier": "Friendly",
+    "reputationRequired": {
+      "advocacy": "Friendly"
+    },
+    "rewardRange": {
+      "min": 30000,
+      "max": 45000
+    },
+    "locations": ["Stanton System", "Hurston", "microTech", "ArcCorp", "Crusader"]
+  },
+  {
+    "id": "bounty-ert",
+    "name": "ERT Bounty (Extreme Risk Target)",
+    "type": "bounty_hunter",
+    "description": "Track and eliminate an extreme risk criminal target. These targets pilot capital-class ships and are protected by extensive escort wings. The most dangerous and lucrative bounty hunter contracts available. Requires a multi-crew ship and coordinated team.",
+    "minRepTier": "Honored",
+    "reputationRequired": {
+      "advocacy": "Honored"
+    },
+    "rewardRange": {
+      "min": 55000,
+      "max": 90000
+    },
+    "locations": ["Stanton System", "Hurston", "microTech", "ArcCorp", "Crusader"]
+  },
+  {
+    "id": "mercenary-bunker-clear",
+    "name": "Bunker Clearance Operation",
+    "type": "mercenary",
+    "description": "Respond to hostile takeover of a defensive bunker. Clear the facility of hostile forces, neutralize all threats, and secure the site for the contracting faction. Requires FPS combat proficiency and appropriate ground equipment.",
+    "minRepTier": "Neutral",
+    "reputationRequired": {},
+    "rewardRange": {
+      "min": 15000,
+      "max": 30000
+    },
+    "locations": ["Hurston", "microTech", "ArcCorp", "Crusader"]
+  },
+  {
+    "id": "mercenary-defend-site",
+    "name": "Site Defense Contract",
+    "type": "mercenary",
+    "description": "Defend a facility or outpost against waves of hostile attackers. Hold the position until reinforcements arrive or the threat is eliminated. Requires sustained combat capability and defensive positioning.",
+    "minRepTier": "Neutral",
+    "reputationRequired": {},
+    "rewardRange": {
+      "min": 12000,
+      "max": 22000
+    },
+    "locations": ["Hurston", "microTech", "ArcCorp", "Crusader", "Pyro System"]
+  },
+  {
+    "id": "mercenary-evacuate",
+    "name": "Personnel Evacuation",
+    "type": "mercenary",
+    "description": "Extract civilian or military personnel from a hostile zone. Navigate to the extraction point, protect evacuees, and transport them to safety. Requires ground combat skills and a ship with passenger capacity.",
+    "minRepTier": "Neutral",
+    "reputationRequired": {},
+    "rewardRange": {
+      "min": 10000,
+      "max": 18000
+    },
+    "locations": ["Hurston", "microTech", "ArcCorp", "Crusader", "Pyro System"]
+  },
+  {
+    "id": "mercenary-assault",
+    "name": "Ground Assault Operation",
+    "type": "mercenary",
+    "description": "Lead an assault on a fortified enemy position. Eliminate all resistance and destroy key assets. High-risk mission requiring coordinated ground combat and potentially vehicle support.",
+    "minRepTier": "Positive",
+    "reputationRequired": {
+      "cdf": "Positive"
+    },
+    "rewardRange": {
+      "min": 25000,
+      "max": 40000
+    },
+    "locations": ["Hurston", "microTech", "Pyro System"]
+  },
+  {
+    "id": "delivery-standard",
+    "name": "Standard Package Delivery",
+    "type": "delivery",
+    "description": "Transport a package from one location to another within the Stanton system. Simple point-to-point delivery requiring a ship with cargo capacity. Timely delivery increases rewards.",
+    "minRepTier": "Neutral",
+    "reputationRequired": {},
+    "rewardRange": {
+      "min": 3000,
+      "max": 5000
+    },
+    "locations": ["Stanton System", "Port Tressler", "Everus Harbor", "Baijini Point", "Seraphim Station"]
+  },
+  {
+    "id": "delivery-multi",
+    "name": "Multi-Stop Package Run",
+    "type": "delivery",
+    "description": "Transport multiple packages across several stops in the Stanton system. Requires efficient route planning and a ship with sufficient cargo space. Each package has its own delivery deadline.",
+    "minRepTier": "Neutral",
+    "reputationRequired": {},
+    "rewardRange": {
+      "min": 8000,
+      "max": 15000
+    },
+    "locations": ["Stanton System", "Port Tressler", "Everus Harbor", "Baijini Point", "Seraphim Station"]
+  },
+  {
+    "id": "delivery-priority",
+    "name": "Priority Express Cargo",
+    "type": "delivery",
+    "description": "High-priority time-sensitive delivery contract. These packages require expedited handling and have strict delivery windows. Higher pay for the increased time pressure.",
+    "minRepTier": "Positive",
+    "reputationRequired": {},
+    "rewardRange": {
+      "min": 6000,
+      "max": 10000
+    },
+    "locations": ["Stanton System", "microTech", "ArcCorp", "Crusader"]
+  },
+  {
+    "id": "cargo-transport",
+    "name": "Cargo Transport Contract",
+    "type": "cargo",
+    "description": "Transport bulk cargo between stations and planets. Requires a ship with significant cargo capacity. Cargo may be legal or illicit depending on the shipper. Watch for pirate activity along trade routes.",
+    "minRepTier": "Neutral",
+    "reputationRequired": {},
+    "rewardRange": {
+      "min": 15000,
+      "max": 50000
+    },
+    "locations": ["Stanton System", "Port Tressler", "Everus Harbor", "Baijini Point", "Seraphim Station"]
+  },
+  {
+    "id": "cargo-supply-run",
+    "name": "System Supply Run",
+    "type": "cargo",
+    "description": "Resupply outposts and stations throughout the Stanton system. Transport essential goods such as food, medical supplies, and equipment to remote locations. Reliable suppliers are always in demand.",
+    "minRepTier": "Neutral",
+    "reputationRequired": {},
+    "rewardRange": {
+      "min": 20000,
+      "max": 60000
+    },
+    "locations": ["Stanton System", "Rest Stops", "Lagrange Points"]
+  },
+  {
+    "id": "cargo-risky",
+    "name": "Risky Cargo Run",
+    "type": "cargo",
+    "description": "Transport sensitive or valuable cargo through high-risk areas. May involve illegal goods or items that attract pirate attention. High risk of interdiction but significantly higher pay.",
+    "minRepTier": "Positive",
+    "reputationRequired": {},
+    "rewardRange": {
+      "min": 40000,
+      "max": 100000
+    },
+    "locations": ["Stanton System", "Pyro System", "Lagrange Points"]
+  },
+  {
+    "id": "mining-claim",
+    "name": "Mining Claim Assessment",
+    "type": "mining",
+    "description": "Travel to a designated asteroid belt or planetary surface to assess mineral deposits. Use a Prospector or Mole to survey and extract valuable ores. Process raw materials and deliver refined goods.",
+    "minRepTier": "Neutral",
+    "reputationRequired": {},
+    "rewardRange": {
+      "min": 20000,
+      "max": 80000
+    },
+    "locations": ["Hurston", "microTech", "ArcCorp", "Crusader", "Lagrange Points"]
+  },
+  {
+    "id": "mining-salvage",
+    "name": "Salvage Operation",
+    "type": "salvage",
+    "description": "Locate and salvage wrecked ships and debris fields. Use a Vulture or Reclaimer to strip valuable materials from derelict vessels. Can be legally contracted or operated independently.",
+    "minRepTier": "Neutral",
+    "reputationRequired": {},
+    "rewardRange": {
+      "min": 15000,
+      "max": 70000
+    },
+    "locations": ["Stanton System", "Pyro System", "Lagrange Points"]
+  },
+  {
+    "id": "salvage-claim",
+    "name": "Salvage Claim Contract",
+    "type": "salvage",
+    "description": "Claims on specific wreckage sites with known valuable salvage. These are exclusive contracts that guarantee rights to a particular salvage location. Payout depends on the quality and quantity of salvageable materials.",
+    "minRepTier": "Positive",
+    "reputationRequired": {},
+    "rewardRange": {
+      "min": 25000,
+      "max": 90000
+    },
+    "locations": ["Stanton System", "Pyro System", "Lagrange Points"]
+  },
+  {
+    "id": "medical-rescue",
+    "name": "Medical Rescue Transport",
+    "type": "medical",
+    "description": "Respond to medical emergencies and transport patients to medical facilities. Requires a ship with medical beds (C8R Pisces, Cutlass Red, Apollo, or similar). Time-critical response needed.",
+    "minRepTier": "Neutral",
+    "reputationRequired": {},
+    "rewardRange": {
+      "min": 5000,
+      "max": 12000
+    },
+    "locations": ["Stanton System", "Port Tressler", "Everus Harbor", "Baijini Point", "Seraphim Station", "Rest Stops"]
+  },
+  {
+    "id": "medical-recovery",
+    "name": "Search and Recovery",
+    "type": "medical",
+    "description": "Locate missing individuals in dangerous areas and extract them for medical treatment. May involve navigating hostile territory or environmental hazards. Requires both search capability and medical transport.",
+    "minRepTier": "Neutral",
+    "reputationRequired": {},
+    "rewardRange": {
+      "min": 10000,
+      "max": 20000
+    },
+    "locations": ["Stanton System", "Hurston", "microTech", "Pyro System"]
+  },
+  {
+    "id": "investigation-missing",
+    "name": "Missing Persons Investigation",
+    "type": "investigation",
+    "description": "Investigate the disappearance of an individual. Search locations for clues, follow leads, and determine the fate of the missing person. May involve exploration of remote wrecks or abandoned facilities.",
+    "minRepTier": "Neutral",
+    "reputationRequired": {},
+    "rewardRange": {
+      "min": 8000,
+      "max": 15000
+    },
+    "locations": ["Stanton System", "Hurston", "microTech", "ArcCorp", "Crusader"]
+  },
+  {
+    "id": "investigation-derelict",
+    "name": "Derelict Ship Investigation",
+    "type": "investigation",
+    "description": "Board and investigate a derelict vessel adrift in space. Determine the cause of the incident, recover black box data, and report findings. Beware of potential hazards including environmental dangers, booby traps, or hostile occupants.",
+    "minRepTier": "Neutral",
+    "reputationRequired": {},
+    "rewardRange": {
+      "min": 10000,
+      "max": 20000
+    },
+    "locations": ["Stanton System", "Lagrange Points", "Pyro System"]
+  },
+  {
+    "id": "smuggling-illicit",
+    "name": "Illicit Cargo Transport",
+    "type": "smuggling",
+    "description": "Transport illegal or restricted goods through Stanton system undetected. Avoid scan checks at security stations and deliver contraband to clandestine locations. High profit but serious legal consequences if caught.",
+    "minRepTier": "Favorable",
+    "reputationRequired": {
+      "ninetails": "Favorable"
+    },
+    "rewardRange": {
+      "min": 30000,
+      "max": 80000
+    },
+    "locations": ["Stanton System", "Pyro System", "Lagrange Points"]
+  },
+  {
+    "id": "piracy-interdiction",
+    "name": "Piracy Interdiction",
+    "type": "piracy",
+    "description": "Interdict and disable civilian or cargo vessels to steal their cargo. Requires electronic warfare capabilities and disabling weapons. Work with a crew to secure cargo and escape before security arrives.",
+    "minRepTier": "Favorable",
+    "reputationRequired": {
+      "ninetails": "Favorable",
+      "blades": "Favorable"
+    },
+    "rewardRange": {
+      "min": 50000,
+      "max": 150000
+    },
+    "locations": ["Stanton System", "Pyro System"]
+  },
+  {
+    "id": "service-repair",
+    "name": "Ship Repair Service",
+    "type": "service",
+    "description": "Provide repair services to damaged ships in the field. Use repair tools or specialized repair ships to restore hull integrity, fix components, and restore ship functionality. Essential for deep-space operations.",
+    "minRepTier": "Neutral",
+    "reputationRequired": {},
+    "rewardRange": {
+      "min": 3000,
+      "max": 15000
+    },
+    "locations": ["Stanton System", "Rest Stops", "Lagrange Points"]
+  },
+  {
+    "id": "service-refuel",
+    "name": "Refueling Operation",
+    "type": "service",
+    "description": "Provide fuel to stranded ships in deep space. Requires a Starfarer or similar refueling vessel. Critical service for explorers and long-haul cargo operators pushing beyond standard refueling stations.",
+    "minRepTier": "Neutral",
+    "reputationRequired": {},
+    "rewardRange": {
+      "min": 5000,
+      "max": 20000
+    },
+    "locations": ["Stanton System", "Pyro System", "Lagrange Points"]
+  }
+]

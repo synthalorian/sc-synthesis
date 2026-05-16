@@ -1,0 +1,308 @@
+[
+  {
+    "id": "agricium",
+    "name": "Agricium",
+    "type": "raw",
+    "description": "A rare and valuable mineral used in advanced electronics and computer component manufacturing. High density makes it efficient for transport. Primarily mined from asteroid belts and planetary deposits. One of the most profitable raw resources for miners.",
+    "averagePrice": 34.50,
+    "bulkSize": 1,
+    "isIllegal": false
+  },
+  {
+    "id": "aluminum",
+    "name": "Aluminum",
+    "type": "raw",
+    "description": "Common light metal used extensively in ship manufacturing, construction, and industrial applications. Abundant throughout the Stanton system. A reliable bulk trading commodity with stable demand.",
+    "averagePrice": 1.25,
+    "bulkSize": 4,
+    "isIllegal": false
+  },
+  {
+    "id": "astatine",
+    "name": "Astatine",
+    "type": "raw",
+    "description": "A rare radioactive element used in specialized power generation and medical applications. Difficult to mine and handle safely, requiring specialized equipment. Priced at a premium due to its rarity and handling requirements.",
+    "averagePrice": 58.00,
+    "bulkSize": 1,
+    "isIllegal": false
+  },
+  {
+    "id": "beryl",
+    "name": "Beryl",
+    "type": "raw",
+    "description": "A mineral composed of beryllium aluminum cyclosilicate. Used in the production of advanced materials and industrial components. Found in crystalline form in various mineral deposits throughout the Stanton system.",
+    "averagePrice": 5.50,
+    "bulkSize": 2,
+    "isIllegal": false
+  },
+  {
+    "id": "borase",
+    "name": "Borase",
+    "type": "raw",
+    "description": "A dense metallic ore used in the production of heavy alloys for ship armor and industrial equipment. High tensile strength makes it essential for military-grade hull plating. Moderate demand from manufacturing sectors.",
+    "averagePrice": 12.00,
+    "bulkSize": 2,
+    "isIllegal": false
+  },
+  {
+    "id": "chlorine",
+    "name": "Chlorine",
+    "type": "gas",
+    "description": "A reactive chemical gas used in industrial processing, water treatment, and chemical manufacturing. Extracted through atmospheric processing. Stored in pressurized containers for transport. Moderate value commodity with consistent demand.",
+    "averagePrice": 1.80,
+    "bulkSize": 1,
+    "isIllegal": false
+  },
+  {
+    "id": "corundum",
+    "name": "Corundum",
+    "type": "raw",
+    "description": "A crystalline aluminum oxide mineral used in abrasive applications, gemstone production, and industrial cutting tools. Hard and durable. Alpha-grade corundum can be quite valuable.",
+    "averagePrice": 7.00,
+    "bulkSize": 2,
+    "isIllegal": false
+  },
+  {
+    "id": "diamond",
+    "name": "Diamond",
+    "type": "raw",
+    "description": "Precious crystalline carbon used in luxury goods, industrial cutting tools, and high-end electronics. High value-to-volume ratio makes it ideal for small, high-profit cargo runs.",
+    "averagePrice": 45.00,
+    "bulkSize": 1,
+    "isIllegal": false
+  },
+  {
+    "id": "distilled-spirits",
+    "name": "Distilled Spirits",
+    "type": "processed",
+    "description": "High-proof alcoholic beverages produced at agricultural facilities. Luxury consumer good with consistent demand across all Stanton population centers. Popular for both legitimate trade and smuggling operations.",
+    "averagePrice": 4.50,
+    "bulkSize": 1,
+    "isIllegal": false
+  },
+  {
+    "id": "fluorine",
+    "name": "Fluorine",
+    "type": "gas",
+    "description": "A highly reactive pale yellow gas used in industrial chemical processes, including the production of uranium hexafluoride and specialty plastics. Requires careful handling and special storage containers. Dangerous to transport in large quantities.",
+    "averagePrice": 3.20,
+    "bulkSize": 1,
+    "isIllegal": false
+  },
+  {
+    "id": "gold",
+    "name": "Gold",
+    "type": "raw",
+    "description": "Precious metal used in high-end electronics, jewelry, and as a financial reserve. Excellent conductor of electricity and corrosion-resistant. Consistently valuable and easy to transport. Legal in all UEE jurisdictions.",
+    "averagePrice": 38.00,
+    "bulkSize": 1,
+    "isIllegal": false
+  },
+  {
+    "id": "hydrogen",
+    "name": "Hydrogen",
+    "type": "gas",
+    "description": "The most abundant element in the universe, used as fuel for ship quantum drives and thrusters. Extracted from gas giants through atmospheric scooping. Essential fuel commodity with massive volume demand. Low unit price but high volume of trade.",
+    "averagePrice": 0.40,
+    "bulkSize": 4,
+    "isIllegal": false
+  },
+  {
+    "id": "iodine",
+    "name": "Iodine",
+    "type": "raw",
+    "description": "A chemical element used in medical antiseptics, pharmaceutical production, and specialty chemical processes. Mined in trace amounts from various planetary deposits. Steady medical-sector demand.",
+    "averagePrice": 3.75,
+    "bulkSize": 1,
+    "isIllegal": false
+  },
+  {
+    "id": "iron",
+    "name": "Iron",
+    "type": "raw",
+    "description": "Common base metal used throughout the Stanton system for construction, manufacturing, and industrial production. High volume, low margin commodity. The backbone of industrial supply chains.",
+    "averagePrice": 0.65,
+    "bulkSize": 4,
+    "isIllegal": false
+  },
+  {
+    "id": "laranite",
+    "name": "Laranite",
+    "type": "raw",
+    "description": "A rare and valuable crystalline mineral used in ship shield generators, quantum drives, and advanced power systems. Highly sought after by the military and commercial ship manufacturers. One of the most lucrative mining resources in Stanton.",
+    "averagePrice": 55.00,
+    "bulkSize": 1,
+    "isIllegal": false
+  },
+  {
+    "id": "medical-supplies",
+    "name": "Medical Supplies",
+    "type": "medical",
+    "description": "Standard medical kits, pharmaceuticals, and healthcare equipment packaged for distribution. Essential commodity with demand across all population centers. Includes bandages, antiseptics, diagnostic tools, and emergency medical equipment.",
+    "averagePrice": 8.50,
+    "bulkSize": 1,
+    "isIllegal": false
+  },
+  {
+    "id": "nepheline",
+    "name": "Nepheline",
+    "type": "raw",
+    "description": "A feldspathoid mineral used in the production of glass, ceramics, and industrial fillers. Mined from volcanic deposits. Moderate value industrial mineral with steady demand from manufacturing sectors.",
+    "averagePrice": 3.00,
+    "bulkSize": 2,
+    "isIllegal": false
+  },
+  {
+    "id": "processed-food",
+    "name": "Processed Food",
+    "type": "agricultural",
+    "description": "Packaged food products produced from agricultural raw materials. Includes preserved meals, rations, and convenience foods. Essential for long-duration space travel and station populations. Consistent demand across all Stanton facilities.",
+    "averagePrice": 1.50,
+    "bulkSize": 4,
+    "isIllegal": false
+  },
+  {
+    "id": "quartz",
+    "name": "Quartz",
+    "type": "raw",
+    "description": "A common crystalline mineral used in electronics manufacturing, timekeeping components, and specialty glass production. Abundant but valuable when high-purity deposits are found. Essential component in ship avionics manufacturing.",
+    "averagePrice": 4.25,
+    "bulkSize": 2,
+    "isIllegal": false
+  },
+  {
+    "id": "scrap",
+    "name": "Scrap",
+    "type": "waste",
+    "description": "Recycled metal and material salvaged from decommissioned ships and industrial waste. Processed and repurposed for use in lower-grade manufacturing. Low value per unit but available in very high volumes. The foundation of the salvage economy.",
+    "averagePrice": 0.55,
+    "bulkSize": 4,
+    "isIllegal": false
+  },
+  {
+    "id": "silica",
+    "name": "Silica",
+    "type": "raw",
+    "description": "A common mineral compound used in glass production, electronics manufacturing, and construction materials. Abundant throughout the Stanton system. Low value but consistent demand from industrial sectors.",
+    "averagePrice": 0.80,
+    "bulkSize": 4,
+    "isIllegal": false
+  },
+  {
+    "id": "stims",
+    "name": "Stims",
+    "type": "medical",
+    "description": "Performance-enhancing pharmaceuticals used to improve focus, reaction time, and physical endurance. Popular in combat and hazardous occupation environments. Some formulations may be restricted or regulated in UEE space.",
+    "averagePrice": 12.00,
+    "bulkSize": 1,
+    "isIllegal": false
+  },
+  {
+    "id": "alutec",
+    "name": "Alutec",
+    "type": "refined",
+    "description": "A lightweight aluminum-titanium alloy used extensively in ship manufacturing. Stronger than pure aluminum while maintaining low weight. Produced through specialized refining processes from aluminum and titanium feedstocks.",
+    "averagePrice": 6.00,
+    "bulkSize": 2,
+    "isIllegal": false
+  },
+  {
+    "id": "altruciatoxin",
+    "name": "Altruciatoxin",
+    "type": "medical",
+    "description": "A highly potent biological toxin extracted from rare xenofauna. Used in small quantities for specialized medical research and targeted pharmaceutical applications. Extremely dangerous to handle without proper equipment. Highly regulated.",
+    "averagePrice": 95.00,
+    "bulkSize": 1,
+    "isIllegal": false
+  },
+  {
+    "id": "amioshi-plague",
+    "name": "Amioshi Plague Sample",
+    "type": "medical",
+    "description": "Contained biological samples of the rare and deadly Amioshi Plague. Used exclusively for medical research and vaccine development. Transport requires specialized bio-containment procedures. Extremely hazardous and illegal for unauthorized transport.",
+    "averagePrice": 150.00,
+    "bulkSize": 1,
+    "isIllegal": true
+  },
+  {
+    "id": "titanium",
+    "name": "Titanium",
+    "type": "refined",
+    "description": "Strong, lightweight transition metal refined from mined ores. Essential for high-performance ship components, military-grade armor, and aerospace manufacturing. Higher value than base metals due to processing requirements.",
+    "averagePrice": 8.00,
+    "bulkSize": 2,
+    "isIllegal": false
+  },
+  {
+    "id": "tungsten",
+    "name": "Tungsten",
+    "type": "raw",
+    "description": "A dense, high-melting-point metal used in armor-piercing ammunition, engine components, and radiation shielding. Mined from select mineral deposits. Valued for its exceptional density and heat resistance.",
+    "averagePrice": 10.50,
+    "bulkSize": 2,
+    "isIllegal": false
+  },
+  {
+    "id": "waste",
+    "name": "Waste",
+    "type": "waste",
+    "description": "General refuse and non-recyclable waste materials from stations, cities, and ships. Requires proper disposal at designated facilities. Negative value commodity that must be transported to processing centers. Illegal to dump in space.",
+    "averagePrice": 0.10,
+    "bulkSize": 8,
+    "isIllegal": false
+  },
+  {
+    "id": "widow",
+    "name": "Widow",
+    "type": "processed",
+    "description": "A highly addictive and illegal synthetic narcotic. Produced in clandestine laboratories using complex chemical processes. Extremely dangerous to produce, transport, or consume. Possession carries severe UEE legal penalties. High black market value.",
+    "averagePrice": 250.00,
+    "bulkSize": 1,
+    "isIllegal": true
+  },
+  {
+    "id": "eggs",
+    "name": "Eggs",
+    "type": "agricultural",
+    "description": "Perishable agricultural product sourced from livestock operations on agricultural worlds. Requires refrigerated transport to maintain freshness. Staple food commodity with consistent demand across all population centers.",
+    "averagePrice": 1.80,
+    "bulkSize": 1,
+    "isIllegal": false
+  },
+  {
+    "id": "gasping-weevil-eggs",
+    "name": "Gasping Weevil Eggs",
+    "type": "agricultural",
+    "description": "Exotic delicacy harvested from the Gasping Weevil, native to select agricultural worlds. Considered a luxury food item in high-end culinary establishments. Requires careful handling and climate-controlled transport. Highly perishable.",
+    "averagePrice": 42.00,
+    "bulkSize": 1,
+    "isIllegal": false
+  },
+  {
+    "id": "maze",
+    "name": "Maze",
+    "type": "processed",
+    "description": "A powerful and illegal street drug known for its intense hallucinogenic effects. Produced from rare fungi and synthetic compounds. Extremely dangerous and highly addictive. Severe penalties for possession and trafficking in UEE space. High risk, high reward for smugglers.",
+    "averagePrice": 300.00,
+    "bulkSize": 1,
+    "isIllegal": true
+  },
+  {
+    "id": "helium",
+    "name": "Helium",
+    "type": "gas",
+    "description": "An inert noble gas used in cooling systems, pressurization, and as a lifting gas for atmospheric platforms. Extracted from gas giant atmospheres. Essential for ship systems cooling and industrial processes.",
+    "averagePrice": 2.50,
+    "bulkSize": 1,
+    "isIllegal": false
+  },
+  {
+    "id": "quantum-fuel",
+    "name": "Quantum Fuel",
+    "type": "refined",
+    "description": "Specialized fuel blend used to power quantum drives for faster-than-light travel. Extracted and refined from gas giant atmospheres. Critical resource for all space travel. High demand across all systems. Major component of Stanton's strategic resources.",
+    "averagePrice": 5.00,
+    "bulkSize": 2,
+    "isIllegal": false
+  }
+]
