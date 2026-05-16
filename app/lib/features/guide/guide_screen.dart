@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sc_synthesis/core/data/reference_database.dart';
 import 'package:sc_synthesis/features/guide/guide_category_screen.dart';
+import 'package:sc_synthesis/features/guide/stanton_map_screen.dart';
 
 /// A category entry for the guide hub.
 class _GuideCategory {
@@ -58,7 +59,7 @@ class _GuideScreenState extends State<GuideScreen> {
     _GuideCategory(
       id: 'locations',
       title: 'Locations',
-      subtitle: 'Planets, stations, points of interest',
+      subtitle: 'Interactive Stanton system map',
       icon: Icons.public,
       iconColor: Color(0xFF00FF41),
       dbCategory: 'locations',
@@ -312,6 +313,14 @@ class _GuideScreenState extends State<GuideScreen> {
   }
 
   void _openCategory(BuildContext context, _GuideCategory category) {
+    // Special case: Locations opens the interactive Stanton map
+    if (category.id == 'locations') {
+      Navigator.of(context).push(
+        MaterialPageRoute(builder: (_) => const StantonMapScreen()),
+      );
+      return;
+    }
+
     List<Map<String, dynamic>> data;
     switch (category.dbCategory) {
       case 'factions':
