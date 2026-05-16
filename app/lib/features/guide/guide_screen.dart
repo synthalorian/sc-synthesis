@@ -89,6 +89,14 @@ class _GuideScreenState extends State<GuideScreen> {
       dbCategory: 'components',
     ),
     _GuideCategory(
+      id: 'shopping',
+      title: 'Shopping',
+      subtitle: 'Stores, inventories, and ship upgrades',
+      icon: Icons.shopping_bag_outlined,
+      iconColor: Color(0xFFFF69B4),
+      dbCategory: 'stores',
+    ),
+    _GuideCategory(
       id: 'medical',
       title: 'Medical & Survival',
       subtitle: 'Healing, respawn, and life support',
@@ -337,6 +345,9 @@ class _GuideScreenState extends State<GuideScreen> {
         break;
       case 'components':
         data = _db.components;
+        break;
+      case 'stores':
+        data = _db.stores;
         break;
       default:
         data = _db.factions;
