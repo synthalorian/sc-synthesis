@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:sc_synthesis/core/theme/app_theme.dart';
 import 'package:sc_synthesis/core/data/rust_database_service.dart';
+import 'package:sc_synthesis/core/data/reference_database.dart';
+import 'package:sc_synthesis/core/theme/app_theme.dart';
 import 'package:sc_synthesis/features/fleet/fleet_screen.dart';
+import 'package:sc_synthesis/features/guide/guide_screen.dart';
 import 'package:sc_synthesis/features/settings/settings_screen.dart';
 import 'package:sc_synthesis/features/ships/ship_list_screen.dart';
 
@@ -20,8 +22,8 @@ class ScSynthesisAppState extends State<ScSynthesisApp> {
   void initState() {
     super.initState();
     _themeManager = ThemeManager()..addListener(_onThemeChanged);
-    // Initialize Rust backend — opens SQLite DB, seeds from bundled data
     RustDatabaseService().init();
+    ReferenceDatabase().load();
   }
 
   @override
@@ -62,10 +64,9 @@ class ScSynthesisAppState extends State<ScSynthesisApp> {
             key: ValueKey('tab-$_currentTab'),
             index: _currentTab,
             children: [
-              FleetScreen(
-                onSwitchToShipsTab: () => _switchToTab(1),
-              ),
+              FleetScreen(onSwitchToShipsTab: () => _switchToTab(1)),
               ShipListScreen(),
+              const GuideScreen(),
               SettingsScreen(),
             ],
           ),
@@ -87,6 +88,11 @@ class ScSynthesisAppState extends State<ScSynthesisApp> {
               icon: Icon(Icons.scanner_outlined),
               selectedIcon: Icon(Icons.scanner),
               label: 'Ships',
+            ),
+            NavigationDestination(
+              icon: Icon(Icons.menu_book_outlined),
+              selectedIcon: Icon(Icons.menu_book),
+              label: 'Guide',
             ),
             NavigationDestination(
               icon: Icon(Icons.settings_outlined),
