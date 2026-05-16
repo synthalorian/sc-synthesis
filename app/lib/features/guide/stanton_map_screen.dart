@@ -1,152 +1,97 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:sc_synthesis/core/data/reference_database.dart';
 
 // ---------------------------------------------------------------------------
 // Data model
 // ---------------------------------------------------------------------------
 
-/// Type of location in the Stanton system.
-enum _LocationType { planet, station, restStop, lagrange }
-
-/// A named point of interest on the starmap with display metadata.
-class _StarmapLocation {
+/// A location displayed on the starmap.
+class _MapLocation {
   final String name;
-  final _LocationType type;
+  final String type;
   final List<String> services;
   final String description;
+  final Offset position; // dx = radiusFraction (0-1), dy = angleDeg
 
-  const _StarmapLocation({
+  const _MapLocation({
     required this.name,
     required this.type,
     this.services = const [],
     this.description = '',
+    required this.position,
   });
 }
 
 // ---------------------------------------------------------------------------
-// Location definitions
+// Position derivation — assigns polar (radiusFraction, angleDeg) based on
+// location name and type from the JSON reference data.
 // ---------------------------------------------------------------------------
 
-const _kPlanets = <_StarmapLocation>[
-  _StarmapLocation(
-    name: 'Hurston',
-    type: _LocationType.planet,
-    services: ['Ship Spawn', 'Cargo', 'Habitation', 'Shopping'],
-    description:
-        'The corporate homeworld of Hurston Dynamics. A polluted industrial '
-        'world known for its massive manufacturing facilities and authoritarian '
-        'governance.',
-  ),
-  _StarmapLocation(
-    name: 'ArcCorp',
-    type: _LocationType.planet,
-    services: ['Ship Spawn', 'Cargo', 'Habitation', 'Shopping', 'Admin'],
-    description:
-        'A fully urbanized planet covered entirely by a single sprawling '
-        'cityscape. Home to ArcCorp, one of the mega-corporations of the '
-        'United Empire of Earth.',
-  ),
-  _StarmapLocation(
-    name: 'Crusader',
-    type: _LocationType.planet,
-    services: ['Ship Spawn', 'Cargo', 'Refueling', 'Habitation'],
-    description:
-        'A gas giant with a breathable atmosphere layer. Home to Crusader '
-        'Industries and the floating city of Orison suspended in its '
-        'clouds.',
-  ),
-  _StarmapLocation(
-    name: 'microTech',
-    type: _LocationType.planet,
-    services: ['Ship Spawn', 'Cargo', 'Habitation', 'Shopping', 'Mining'],
-    description:
-        'A cold, snow-covered world owned by microTech. Features the '
-        'sleek, modern city of New Babbage built into a glacial valley.',
-  ),
-];
+Offset _derivePosition(Map<String, dynamic> data) {
+  final name = data['name'] as String? ?? '';
 
-const _kStations = <_StarmapLocation>[
-  _StarmapLocation(
-    name: 'Everus Harbor',
-    type: _LocationType.station,
-    services: ['Ship Spawn', 'Refueling', 'Repair', 'Cargo', 'Habitation'],
-    description:
-        'The orbital station serving Hurston. A major transit hub '
-        'for goods leaving the surface factories.',
-  ),
-  _StarmapLocation(
-    name: 'Baijini Point',
-    type: _LocationType.station,
-    services: ['Ship Spawn', 'Refueling', 'Repair', 'Cargo', 'Habitation'],
-    description:
-        'The orbital station serving ArcCorp. A busy waypoint for '
-        'the endless stream of orbital traffic above Area18.',
-  ),
-  _StarmapLocation(
-    name: 'Seraphim Station',
-    type: _LocationType.station,
-    services: ['Ship Spawn', 'Refueling', 'Repair', 'Cargo', 'Habitation'],
-    description:
-        'The orbital station serving Crusader. Provides safe harbor '
-        'above the turbulent gas giant.',
-  ),
-  _StarmapLocation(
-    name: 'Port Tressler',
-    type: _LocationType.station,
-    services: ['Ship Spawn', 'Refueling', 'Repair', 'Cargo', 'Habitation'],
-    description:
-        'The orbital station serving microTech. A gleaming outpost '
-        'in orbit above the frozen world.',
-  ),
-];
+  // ---- Planets (precise orbital positions) ----
+  if (name == 'Hurston') return const Offset(0.18, 30);
+  if (name == 'ArcCorp') return const Offset(0.32, 120);
+  if (name == 'Crusader') return const Offset(0.46, 210);
+  if (name == 'microTech') return const Offset(0.60, 300);
 
-const _kRestStops = <_StarmapLocation>[
-  _StarmapLocation(
-    name: 'R&R CRU-L1',
-    type: _LocationType.restStop,
-    services: ['Refueling', 'Repair', 'Habitation'],
-    description:
-        'A standard Rest & Relax station at the L1 Lagrange point '
-        'between Crusader and ArcCorp.',
-  ),
-  _StarmapLocation(
-    name: 'R&R HUR-L2',
-    type: _LocationType.restStop,
-    services: ['Refueling', 'Repair', 'Habitation'],
-    description:
-        'A Rest & Relax station at the L2 Lagrange point '
-        'near Hurston.',
-  ),
-];
+  // City / landing zones — same position as their parent planet
+  if (name == 'Lorville') return const Offset(0.18, 30);
+  if (name == 'New Babbage') return const Offset(0.60, 300);
+  if (name == 'Area18') return const Offset(0.32, 120);
+  if (name == 'Orison') return const Offset(0.46, 210);
 
-const _kLagrangePoints = <_StarmapLocation>[
-  _StarmapLocation(
-    name: 'HUR-L1',
-    type: _LocationType.lagrange,
-    description:
-        'L1 Lagrange point between Hurston and ArcCorp.',
-  ),
-  _StarmapLocation(
-    name: 'ARC-L1',
-    type: _LocationType.lagrange,
-    services: ['Cargo'],
-    description:
-        'L1 Lagrange point between ArcCorp and Crusader.',
-  ),
-  _StarmapLocation(
-    name: 'CRU-L2',
-    type: _LocationType.lagrange,
-    description:
-        'L2 Lagrange point between Crusader and microTech.',
-  ),
-  _StarmapLocation(
-    name: 'MIC-L1',
-    type: _LocationType.lagrange,
-    description:
-        'L1 Lagrange point between microTech and Hurston.',
-  ),
-];
+  // ---- Stations (offset from parent planet by ±20-30°) ----
+  if (name == 'Everus Harbor') return const Offset(0.18, 5);   // Hurston -25°
+  if (name == 'Baijini Point') return const Offset(0.34, 140); // ArcCorp +20°
+  if (name == 'Seraphim Station') return const Offset(0.48, 180); // Crusader -30°
+  if (name == 'Port Tressler') return const Offset(0.62, 325); // microTech +25°
+
+  // ---- Rest stops ----
+  if (name == 'R&R HUR (Hurston Orbit)') return const Offset(0.24, 350);
+  if (name == 'R&R MIC (microTech Orbit)') return const Offset(0.50, 270);
+  if (name == 'R&R ARC (ArcCorp Orbit)') return const Offset(0.39, 105);
+  if (name == 'R&R CRU (Crusader Orbit)') return const Offset(0.39, 195);
+
+  // ---- Lagrange points ----
+  if (name == 'HUR-L1 Lagrange Station') return const Offset(0.25, 75);
+  if (name == 'HUR-L2 Lagrange Station') return const Offset(0.25, 345);
+  if (name == 'MIC-L1 Lagrange Station') return const Offset(0.39, 345);
+  if (name == 'MIC-L2 Lagrange Station') return const Offset(0.50, 270);
+  if (name == 'ARC-L1 Lagrange Station') return const Offset(0.39, 165);
+  if (name == 'ARC-L2 Lagrange Station') return const Offset(0.39, 105);
+  if (name == 'CRU-L1 Lagrange Station') return const Offset(0.50, 165);
+  if (name == 'CRU-L2 Lagrange Station') return const Offset(0.53, 255);
+  if (name == 'CRU-L3 Lagrange Station') return const Offset(0.40, 250);
+
+  // Fallback
+  return const Offset(0.1, 0);
+}
+
+/// Normalise JSON service keys to the display strings expected by
+/// [_serviceChip].
+String _normaliseService(String raw) {
+  switch (raw) {
+    case 'landing':
+      return 'Ship Spawn';
+    case 'cargo':
+      return 'Cargo';
+    case 'shipShop':
+    case 'weaponShop':
+    case 'armorShop':
+      return 'Shopping';
+    case 'medical':
+    case 'bar':
+      return 'Habitation';
+    case 'refining':
+      return 'Refueling';
+    default:
+      return raw;
+  }
+}
 
 // ---------------------------------------------------------------------------
 // Orbital & visual constants
@@ -198,28 +143,6 @@ const _kOrbitConfigs = <_OrbitConfig>[
   ),
 ];
 
-// Station angular offsets from their parent planet
-const _kStationOffsets = <double>[
-  -25, // Everus Harbor from Hurston
-  20, // Baijini Point from ArcCorp
-  -30, // Seraphim Station from Crusader
-  25, // Port Tressler from microTech
-];
-
-// Rest stop positions as (radiusFraction, angleDeg)
-const _kRestStopPositions = <(double, double)>[
-  (0.39, 165), // CRU-L1 between ArcCorp and Crusader
-  (0.24, 350), // HUR-L2 near Hurston
-];
-
-// Lagrange point positions
-const _kLagrangePositions = <(double, double)>[
-  (0.25, 75), // HUR-L1
-  (0.39, 165), // ARC-L1
-  (0.53, 255), // CRU-L2
-  (0.39, 345), // MIC-L1
-];
-
 // ---------------------------------------------------------------------------
 // Helpers
 // ---------------------------------------------------------------------------
@@ -240,6 +163,71 @@ List<Offset> _generateStars(int count, Size size) {
   });
 }
 
+/// Map a type string to a colour used for badges and markers.
+Color _typeColor(String type) {
+  switch (type) {
+    case 'planet':
+      return const Color(0xFF4FC3F7);
+    case 'station':
+      return const Color(0xFF8888AA);
+    case 'restStop':
+      return const Color(0xFFAAAAAA);
+    case 'lagrange':
+      return const Color(0xFF666688);
+    default:
+      return const Color(0xFF8888AA);
+  }
+}
+
+/// Human-readable label for a type string.
+String _typeLabel(String type) {
+  switch (type) {
+    case 'planet':
+      return 'Planet';
+    case 'station':
+      return 'Station';
+    case 'restStop':
+      return 'Rest Stop';
+    case 'lagrange':
+      return 'Lagrange Point';
+    default:
+      return type;
+  }
+}
+
+/// Icon for a type string.
+IconData _typeIcon(String type) {
+  switch (type) {
+    case 'planet':
+      return Icons.public;
+    case 'station':
+      return Icons.satellite_alt;
+    case 'restStop':
+      return Icons.local_gas_station;
+    case 'lagrange':
+      return Icons.trip_origin;
+    default:
+      return Icons.place;
+  }
+}
+
+/// Planet name → orbit config lookup, used by the painter for orbit rings
+/// and planet-marker colouring.
+_OrbitConfig _configForPlanet(String name) {
+  switch (name) {
+    case 'Hurston':
+      return _kOrbitConfigs[0];
+    case 'ArcCorp':
+      return _kOrbitConfigs[1];
+    case 'Crusader':
+      return _kOrbitConfigs[2];
+    case 'microTech':
+      return _kOrbitConfigs[3];
+    default:
+      return _kOrbitConfigs[0];
+  }
+}
+
 // ---------------------------------------------------------------------------
 // Main screen
 // ---------------------------------------------------------------------------
@@ -257,13 +245,55 @@ class StantonMapScreen extends StatefulWidget {
 }
 
 class _StantonMapScreenState extends State<StantonMapScreen> {
+  final _db = ReferenceDatabase();
+  List<_MapLocation> _locations = [];
+  bool _loading = true;
+
   // Cache star positions so they don't flicker on repaint
   List<Offset>? _cachedStars;
   Size? _lastStarSize;
 
   @override
+  void initState() {
+    super.initState();
+    _load();
+  }
+
+  void _load() {
+    _db.load().then((_) {
+      setState(() {
+        _locations = _db.locations.map((data) {
+          final rawServices =
+              (data['services'] as List<dynamic>?)?.cast<String>() ?? [];
+          final services = rawServices.map(_normaliseService).toList();
+          final pos = _derivePosition(data);
+          return _MapLocation(
+            name: data['name'] as String? ?? '',
+            type: data['type'] as String? ?? '',
+            services: services,
+            description: data['description'] as String? ?? '',
+            position: pos,
+          );
+        }).toList();
+        _loading = false;
+      });
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+
+    if (_loading) {
+      return Scaffold(
+        appBar: AppBar(
+          title: const Text('Stanton System'),
+          centerTitle: true,
+        ),
+        body: const Center(child: CircularProgressIndicator()),
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Stanton System'),
@@ -278,8 +308,6 @@ class _StantonMapScreenState extends State<StantonMapScreen> {
       ),
       body: LayoutBuilder(
         builder: (context, constraints) {
-          // Use the larger dimension as a square canvas so there's room to
-          // zoom and pan without hitting edges immediately.
           final baseSize =
               max(constraints.maxWidth, constraints.maxHeight).ceilToDouble();
           final canvasSize = Size(baseSize, baseSize);
@@ -295,45 +323,17 @@ class _StantonMapScreenState extends State<StantonMapScreen> {
           final orbitScale =
               min(canvasSize.width, canvasSize.height) / 2;
 
-          // Planets
-          final planetPositions = <Offset>[];
-          final allPositions = <_StarmapLocation, Offset>{};
+          final allPositions = <String, Offset>{};
+          final typeOfLocation = <String, String>{};
 
-          for (final config in _kOrbitConfigs) {
+          for (final loc in _locations) {
             final pos = _polarToCartesian(
               center,
-              config.radiusFraction * orbitScale,
-              config.angleDeg,
+              loc.position.dx * orbitScale,
+              loc.position.dy,
             );
-            planetPositions.add(pos);
-          }
-
-          for (int i = 0; i < _kPlanets.length; i++) {
-            allPositions[_kPlanets[i]] = planetPositions[i];
-          }
-
-          // Stations — offset from their parent planet
-          for (int i = 0; i < _kStations.length; i++) {
-            final idx = i < _kStations.length ? i : 0;
-            final parentConfig = _kOrbitConfigs[idx];
-            final stationAngle = parentConfig.angleDeg + _kStationOffsets[idx];
-            final r = parentConfig.radiusFraction * orbitScale + 30;
-            final pos = _polarToCartesian(center, r, stationAngle);
-            allPositions[_kStations[i]] = pos;
-          }
-
-          // Rest stops
-          for (int i = 0; i < _kRestStops.length && i < _kRestStopPositions.length; i++) {
-            final (rFrac, aDeg) = _kRestStopPositions[i];
-            final pos = _polarToCartesian(center, rFrac * orbitScale, aDeg);
-            allPositions[_kRestStops[i]] = pos;
-          }
-
-          // Lagrange points
-          for (int i = 0; i < _kLagrangePoints.length && i < _kLagrangePositions.length; i++) {
-            final (rFrac, aDeg) = _kLagrangePositions[i];
-            final pos = _polarToCartesian(center, rFrac * orbitScale, aDeg);
-            allPositions[_kLagrangePoints[i]] = pos;
+            allPositions[loc.name] = pos;
+            typeOfLocation[loc.name] = loc.type;
           }
 
           return InteractiveViewer(
@@ -345,11 +345,15 @@ class _StantonMapScreenState extends State<StantonMapScreen> {
               onTapUp: (details) {
                 final tapPos = details.localPosition;
                 for (final entry in allPositions.entries) {
-                  final loc = entry.key;
+                  final locName = entry.key;
                   final pos = entry.value;
                   final dist = (tapPos - pos).distance;
-                  final hitRadius = loc.type == _LocationType.planet ? 30.0 : 22.0;
+                  final type = typeOfLocation[locName] ?? '';
+                  final hitRadius = type == 'planet' ? 30.0 : 22.0;
                   if (dist <= hitRadius) {
+                    final loc = _locations.firstWhere(
+                      (l) => l.name == locName,
+                    );
                     _showLocationDetail(context, theme, loc);
                     return;
                   }
@@ -361,8 +365,8 @@ class _StantonMapScreenState extends State<StantonMapScreen> {
                   stars: _cachedStars!,
                   orbitScale: orbitScale,
                   center: center,
-                  planetPositions: planetPositions,
                   allPositions: allPositions,
+                  typeOfLocation: typeOfLocation,
                 ),
               ),
             ),
@@ -472,8 +476,11 @@ class _StantonMapScreenState extends State<StantonMapScreen> {
   void _showLocationDetail(
     BuildContext context,
     ThemeData theme,
-    _StarmapLocation location,
+    _MapLocation location,
   ) {
+    final typeLabel = _typeLabel(location.type);
+    final typeColor = _typeColor(location.type);
+
     showModalBottomSheet(
       context: context,
       backgroundColor: theme.colorScheme.surface,
@@ -481,20 +488,6 @@ class _StantonMapScreenState extends State<StantonMapScreen> {
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
       builder: (ctx) {
-        final typeLabel = switch (location.type) {
-          _LocationType.planet => 'Planet',
-          _LocationType.station => 'Station',
-          _LocationType.restStop => 'Rest Stop',
-          _LocationType.lagrange => 'Lagrange Point',
-        };
-
-        final typeColor = switch (location.type) {
-          _LocationType.planet => const Color(0xFF4FC3F7),
-          _LocationType.station => const Color(0xFF8888AA),
-          _LocationType.restStop => const Color(0xFFAAAAAA),
-          _LocationType.lagrange => const Color(0xFF666688),
-        };
-
         return Padding(
           padding: EdgeInsets.only(
             bottom: MediaQuery.of(ctx).viewInsets.bottom,
@@ -536,12 +529,7 @@ class _StantonMapScreenState extends State<StantonMapScreen> {
                           ),
                         ),
                         child: Icon(
-                          switch (location.type) {
-                            _LocationType.planet => Icons.public,
-                            _LocationType.station => Icons.satellite_alt,
-                            _LocationType.restStop => Icons.local_gas_station,
-                            _LocationType.lagrange => Icons.trip_origin,
-                          },
+                          _typeIcon(location.type),
                           color: typeColor,
                           size: 24,
                         ),
@@ -700,15 +688,15 @@ class _StantonMapPainter extends CustomPainter {
     required this.stars,
     required this.orbitScale,
     required this.center,
-    required this.planetPositions,
     required this.allPositions,
+    required this.typeOfLocation,
   });
 
   final List<Offset> stars;
   final double orbitScale;
   final Offset center;
-  final List<Offset> planetPositions;
-  final Map<_StarmapLocation, Offset> allPositions;
+  final Map<String, Offset> allPositions;
+  final Map<String, String> typeOfLocation;
 
   // Pre-generate scan line positions so they stay stable across repaints
   static final List<double> _scanLines = List.generate(12, (i) {
@@ -874,34 +862,25 @@ class _StantonMapPainter extends CustomPainter {
   // All markers
   // -----------------------------------------------------------------------
   void _drawAllMarkers(Canvas canvas, Size size) {
-    // Planets
-    for (int i = 0; i < _kPlanets.length && i < planetPositions.length; i++) {
-      final config = _kOrbitConfigs[i];
-      final pos = planetPositions[i];
-      _drawPlanetMarker(canvas, pos, config);
-    }
+    for (final entry in allPositions.entries) {
+      final name = entry.key;
+      final pos = entry.value;
+      final type = typeOfLocation[name] ?? '';
 
-    // Stations
-    for (int i = 0; i < _kStations.length; i++) {
-      final pos = allPositions[_kStations[i]];
-      if (pos != null) {
-        _drawStationMarker(canvas, pos, _kStations[i].name);
-      }
-    }
-
-    // Rest stops
-    for (int i = 0; i < _kRestStops.length; i++) {
-      final pos = allPositions[_kRestStops[i]];
-      if (pos != null) {
-        _drawRestStopMarker(canvas, pos, _kRestStops[i].name);
-      }
-    }
-
-    // Lagrange points
-    for (int i = 0; i < _kLagrangePoints.length; i++) {
-      final pos = allPositions[_kLagrangePoints[i]];
-      if (pos != null) {
-        _drawLagrangeMarker(canvas, pos, _kLagrangePoints[i].name);
+      switch (type) {
+        case 'planet':
+          final config = _configForPlanet(name);
+          _drawPlanetMarker(canvas, pos, config, name);
+          break;
+        case 'station':
+          _drawStationMarker(canvas, pos, name);
+          break;
+        case 'restStop':
+          _drawRestStopMarker(canvas, pos, name);
+          break;
+        case 'lagrange':
+          _drawLagrangeMarker(canvas, pos, name);
+          break;
       }
     }
   }
@@ -909,7 +888,7 @@ class _StantonMapPainter extends CustomPainter {
   // -----------------------------------------------------------------------
   // Individual marker types
   // -----------------------------------------------------------------------
-  void _drawPlanetMarker(Canvas canvas, Offset pos, _OrbitConfig config) {
+  void _drawPlanetMarker(Canvas canvas, Offset pos, _OrbitConfig config, String name) {
     final r = config.markerRadius;
 
     // Outer glow
@@ -956,7 +935,7 @@ class _StantonMapPainter extends CustomPainter {
     );
 
     // Label
-    _drawLabel(canvas, pos, _kPlanets[_kOrbitConfigs.indexOf(config)].name,
+    _drawLabel(canvas, pos, name,
         config.color, r + 16);
   }
 
@@ -1061,7 +1040,7 @@ class _StantonMapPainter extends CustomPainter {
     return oldDelegate.stars != stars ||
         oldDelegate.orbitScale != orbitScale ||
         oldDelegate.center != center ||
-        oldDelegate.planetPositions != planetPositions ||
-        oldDelegate.allPositions != allPositions;
+        oldDelegate.allPositions != allPositions ||
+        oldDelegate.typeOfLocation != typeOfLocation;
   }
 }
