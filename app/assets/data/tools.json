@@ -1,0 +1,222 @@
+[
+  {
+    "id": "dps-calculator",
+    "name": "#DPSCalculator",
+    "author": "Erkul",
+    "description": "Build, compare, find, and share vehicle loadouts. The go-to tool for ship weapon and component loadout planning.",
+    "category": "combat",
+    "url": "https://www.erkul.games/",
+    "contact": "",
+    "support": ""
+  },
+  {
+    "id": "sc-ship-performances",
+    "name": "SC Ships Performances Viewer",
+    "author": "Olakeen",
+    "description": "Build, compare, find, and share vehicle loadouts with detailed performance data.",
+    "category": "combat",
+    "url": "",
+    "contact": "Discord",
+    "support": ""
+  },
+  {
+    "id": "star-citizen-armory",
+    "name": "Star Citizen Armory",
+    "author": "TheSpaceCoder",
+    "description": "Build personal loadout and get a shopping list with locations for each piece of gear.",
+    "category": "combat",
+    "url": "",
+    "contact": "Discord",
+    "support": ""
+  },
+  {
+    "id": "ship-performance-analysis",
+    "name": "Ship Performance Analysis Tool",
+    "author": "Legacy Instructional Series",
+    "description": "Compare vehicle and vehicle weapon performances with detailed metrics.",
+    "category": "combat",
+    "url": "",
+    "contact": "Discord",
+    "support": ""
+  },
+  {
+    "id": "snareplan",
+    "name": "SnarePlan",
+    "author": "DOLUS",
+    "description": "Assistance for Quantum Interdiction — plan and execute interdiction operations.",
+    "category": "combat",
+    "url": "",
+    "contact": "Discord",
+    "support": ""
+  },
+  {
+    "id": "sc-overlay",
+    "name": "SCOverlay",
+    "author": "BlugDeg",
+    "description": "In-game overlay with various tools for trading, mining, exploration and more.",
+    "category": "combat",
+    "url": "",
+    "contact": "GitHub",
+    "support": "Donate"
+  },
+  {
+    "id": "sc-trade-tools",
+    "name": "SC Trade Tools",
+    "author": "Keider Valier",
+    "description": "Plan mining route, check mineable prices and refinery yield. Also supports trading route planning.",
+    "category": "mining",
+    "url": "",
+    "contact": "Discord",
+    "support": "Patreon/Ko-Fi"
+  },
+  {
+    "id": "uex",
+    "name": "UEX",
+    "author": "Zatec",
+    "description": "Plan mining route, check mineable prices and refinery yield. Also supports trading routes and commodity pricing.",
+    "category": "mining",
+    "url": "",
+    "contact": "Twitter",
+    "support": ""
+  },
+  {
+    "id": "star-citizen-hauler",
+    "name": "Star Citizen Hauler",
+    "author": "TheSpaceCoder",
+    "description": "Plan and optimize hauling routes for maximum profit per run.",
+    "category": "trading",
+    "url": "",
+    "contact": "Discord",
+    "support": "Patreon"
+  },
+  {
+    "id": "sc-hauling-tools",
+    "name": "SC Hauling Tools",
+    "author": "Heyrros",
+    "description": "Optimize hauling runs — reduce travel time and backtracking with efficient stop and delivery order planning. Supports OCR import.",
+    "category": "trading",
+    "url": "",
+    "contact": "",
+    "support": ""
+  },
+  {
+    "id": "executive-hangar-timer",
+    "name": "Executive Hangar Timer",
+    "author": "Vallexian",
+    "description": "Most accurate timer for the Pyro Executive Hangar Contested Zone Loop.",
+    "category": "exploration",
+    "url": "",
+    "contact": "Discord",
+    "support": "Ko-Fi"
+  },
+  {
+    "id": "verse-guide",
+    "name": "VerseGuide",
+    "author": "LordSkippy",
+    "description": "Find locations in the Verse, save favorites, and generate optimal flight paths between planetary locations.",
+    "category": "exploration",
+    "url": "https://verseguide.com/",
+    "contact": "Discord",
+    "support": "Patreon"
+  },
+  {
+    "id": "star-citizen-maps",
+    "name": "Star Citizen Maps",
+    "author": "Dumma",
+    "description": "3D ship maps with POI markers, fuses, engineering connections and more.",
+    "category": "exploration",
+    "url": "",
+    "contact": "Discord",
+    "support": ""
+  },
+  {
+    "id": "universal-item-finder",
+    "name": "Universal Item Finder",
+    "author": "Meepowski",
+    "description": "Find and view stats of personal and vehicle equipment across the entire game.",
+    "category": "universal",
+    "url": "",
+    "contact": "Discord",
+    "support": "Patreon"
+  },
+  {
+    "id": "sc-commap",
+    "name": "SCcommAP",
+    "author": "errgoth",
+    "description": "In-game overlay for Spectrum chat, radio, search and various tools.",
+    "category": "universal",
+    "url": "",
+    "contact": "Spectrum",
+    "support": "Donate"
+  },
+  {
+    "id": "sc-mission-database",
+    "name": "SC Mission Database",
+    "author": "",
+    "description": "Database for missions, crafting, resources and mining.",
+    "category": "universal",
+    "url": "",
+    "contact": "",
+    "support": ""
+  },
+  {
+    "id": "fleetyards",
+    "name": "FleetYards",
+    "author": "Torlek Maru",
+    "description": "Database on information related to pledge vehicles, ships, and components.",
+    "category": "other",
+    "url": "https://www.fleetyards.net/",
+    "contact": "Discord",
+    "support": "Patreon"
+  },
+  {
+    "id": "starjump-fleetviewer",
+    "name": "Starjump Fleetviewer",
+    "author": "STARJUMP",
+    "description": "Generate beautiful images of your fleet to share with others.",
+    "category": "other",
+    "url": "",
+    "contact": "Discord/Twitter",
+    "support": ""
+  },
+  {
+    "id": "myfleet-gg",
+    "name": "myfleet.gg",
+    "author": "Lesani",
+    "description": "View and share your fleet in interactive 3D. Modern successor to StarShip42.",
+    "category": "other",
+    "url": "",
+    "contact": "Spectrum",
+    "support": ""
+  },
+  {
+    "id": "cargo-grid-viewer",
+    "name": "Cargo Grid Viewer",
+    "author": "bjax",
+    "description": "3D cargo grid visualization — see how much cargo fits in any ship.",
+    "category": "other",
+    "url": "",
+    "contact": "Reddit",
+    "support": ""
+  },
+  {
+    "id": "reference-sheets",
+    "name": "Star Citizen Reference Sheets",
+    "author": "ChrisGBG",
+    "description": "Extensive, up-to-date spreadsheets of game data including ships, components, and game mechanics.",
+    "category": "other",
+    "url": "",
+    "contact": "Spectrum",
+    "support": "Donate"
+  },
+  {
+    "id": "sc-focus",
+    "name": "SC Focus",
+    "author": "FOCUS (org)",
+    "description": "All-in-one blog for the game development since 2015 — dev news, leaks, and analysis.",
+    "category": "other",
+    "url": "https://scfocus.org/",
+    "contact": "",
+    "support": ""
+  }
+]
