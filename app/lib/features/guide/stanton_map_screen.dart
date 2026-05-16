@@ -247,6 +247,8 @@ List<Offset> _generateStars(int count, Size size) {
 /// A full-screen interactive map of the Stanton star system with a synthwave
 /// aesthetic: dark background, neon orbits, glowing markers, and scan-line
 /// effects. Tap any location to see details in a bottom sheet.
+///
+/// Supports pinch-to-zoom via [InteractiveViewer].
 class StantonMapScreen extends StatefulWidget {
   const StantonMapScreen({super.key});
 
@@ -276,7 +278,11 @@ class _StantonMapScreenState extends State<StantonMapScreen> {
       ),
       body: LayoutBuilder(
         builder: (context, constraints) {
-          final canvasSize = Size(constraints.maxWidth, constraints.maxHeight);
+          // Use the larger dimension as a square canvas so there's room to
+          // zoom and pan without hitting edges immediately.
+          final baseSize =
+              max(constraints.maxWidth, constraints.maxHeight).ceilToDouble();
+          final canvasSize = Size(baseSize, baseSize);
 
           // Lazily generate stars for this size
           if (_cachedStars == null || _lastStarSize != canvasSize) {
@@ -330,28 +336,34 @@ class _StantonMapScreenState extends State<StantonMapScreen> {
             allPositions[_kLagrangePoints[i]] = pos;
           }
 
-          return GestureDetector(
-            onTapUp: (details) {
-              final tapPos = details.localPosition;
-              for (final entry in allPositions.entries) {
-                final loc = entry.key;
-                final pos = entry.value;
-                final dist = (tapPos - pos).distance;
-                final hitRadius = loc.type == _LocationType.planet ? 30.0 : 22.0;
-                if (dist <= hitRadius) {
-                  _showLocationDetail(context, theme, loc);
-                  return;
+          return InteractiveViewer(
+            minScale: 0.5,
+            maxScale: 3.0,
+            constrained: false,
+            boundaryMargin: const EdgeInsets.all(200),
+            child: GestureDetector(
+              onTapUp: (details) {
+                final tapPos = details.localPosition;
+                for (final entry in allPositions.entries) {
+                  final loc = entry.key;
+                  final pos = entry.value;
+                  final dist = (tapPos - pos).distance;
+                  final hitRadius = loc.type == _LocationType.planet ? 30.0 : 22.0;
+                  if (dist <= hitRadius) {
+                    _showLocationDetail(context, theme, loc);
+                    return;
+                  }
                 }
-              }
-            },
-            child: CustomPaint(
-              size: canvasSize,
-              painter: _StantonMapPainter(
-                stars: _cachedStars!,
-                orbitScale: orbitScale,
-                center: center,
-                planetPositions: planetPositions,
-                allPositions: allPositions,
+              },
+              child: CustomPaint(
+                size: canvasSize,
+                painter: _StantonMapPainter(
+                  stars: _cachedStars!,
+                  orbitScale: orbitScale,
+                  center: center,
+                  planetPositions: planetPositions,
+                  allPositions: allPositions,
+                ),
               ),
             ),
           );
@@ -400,7 +412,8 @@ class _StantonMapScreenState extends State<StantonMapScreen> {
                     const Color(0xFF666688), 'Tiny dot at L-points'),
                 const SizedBox(height: 16),
                 Text(
-                  'Tap any marker to view details about the location.',
+                  'Tap any marker to view details about the location.\n'
+                  'Pinch to zoom in / out.',
                   style: theme.textTheme.bodySmall?.copyWith(
                     color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
                   ),
