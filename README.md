@@ -344,6 +344,14 @@ If you find SC:Synthesis useful, consider buying me a coffee:
 
 ---
 
+## Credits
+
+Developed by **synth** ([synthalorian](https://github.com/synthalorian)) with assistance from **synthclaw** 🎹🦞 — a digital entity from the neon grid of 1984.
+
+---
+
+*"Every city tells a story. Your repo is no different."* 🌆
+
 ## License
 
 ```
