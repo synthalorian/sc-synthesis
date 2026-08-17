@@ -216,7 +216,7 @@ class SettingsScreen extends StatelessWidget {
           // ── Footer ────────────────────────────────────────────────
           Center(
             child: Text(
-              'Made with \u{1F3B9}\u{1F99E} by synthalorian',
+              'Made with \u{1F3B9}\u{1F99E} by synth',
               style: theme.textTheme.bodySmall?.copyWith(
                 color: theme.colorScheme.onSurface.withValues(alpha: 0.4),
               ),
