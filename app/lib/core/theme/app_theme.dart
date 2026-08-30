@@ -5,10 +5,12 @@ import 'themes/synthwave84_theme.dart';
 import 'themes/outrun_theme.dart';
 import 'themes/vaporwave_theme.dart';
 import 'themes/cyberpunk_theme.dart';
+import 'themes/blackshield_theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// Available theme identifiers
-enum AppThemeType { dark, light, synthwave84, outrun, vaporwave, cyberpunk }
+/// NOTE: append-only — persisted by index, never reorder or insert.
+enum AppThemeType { dark, light, synthwave84, outrun, vaporwave, cyberpunk, blackshield }
 
 extension AppThemeTypeExtension on AppThemeType {
   String get displayName {
@@ -25,6 +27,8 @@ extension AppThemeTypeExtension on AppThemeType {
         return 'Vaporwave';
       case AppThemeType.cyberpunk:
         return 'Cyberpunk';
+      case AppThemeType.blackshield:
+        return 'Blackshield';
     }
   }
 
@@ -42,6 +46,8 @@ extension AppThemeTypeExtension on AppThemeType {
         return 'Dreamy pastels — lavender, aqua, and soft pink.';
       case AppThemeType.cyberpunk:
         return 'Matrix green, electric blue, and chrome. High contrast.';
+      case AppThemeType.blackshield:
+        return 'Steel and blood. Forged for the mercenary who answers to no crown.';
     }
   }
 
@@ -60,6 +66,8 @@ extension AppThemeTypeExtension on AppThemeType {
         return Icons.water_drop;
       case AppThemeType.cyberpunk:
         return Icons.flash_on;
+      case AppThemeType.blackshield:
+        return Icons.shield;
     }
   }
 
@@ -77,6 +85,8 @@ extension AppThemeTypeExtension on AppThemeType {
         return VaporwaveTheme.build();
       case AppThemeType.cyberpunk:
         return CyberpunkTheme.build();
+      case AppThemeType.blackshield:
+        return BlackshieldTheme.build();
     }
   }
 
@@ -94,6 +104,8 @@ extension AppThemeTypeExtension on AppThemeType {
         return const Color(0xFFB57EDC);
       case AppThemeType.cyberpunk:
         return const Color(0xFF00FF41);
+      case AppThemeType.blackshield:
+        return const Color(0xFFC1121F);
     }
   }
 }
@@ -108,7 +120,7 @@ class ThemeManager extends ChangeNotifier {
 
   static const String _themeKey = 'app_theme_type';
 
-  AppThemeType _currentType = AppThemeType.synthwave84;
+  AppThemeType _currentType = AppThemeType.blackshield;
   ThemeData? _cachedTheme;
   late SharedPreferences _prefs;
 
