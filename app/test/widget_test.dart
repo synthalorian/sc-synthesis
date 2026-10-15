@@ -13,6 +13,7 @@ void main() {
 
     // App should show the fleet tab by default
     expect(find.text('My Fleet'), findsOneWidget);
-    expect(find.text('SC:Synthesis'), findsWidgets);
+    // App name (shown on the Settings tab, which IndexedStack keeps offstage).
+    expect(find.text('SC Synthesis', skipOffstage: false), findsWidgets);
   });
 }
