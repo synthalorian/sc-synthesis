@@ -27,4 +27,11 @@ jobs:
           cache: true
       - run: flutter pub get
       - run: flutter analyze lib --no-fatal-infos --no-fatal-warnings
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: app/rust
+      - name: Build Rust bridge library for tests
+        run: cargo build --release
+        working-directory: app/rust
       - run: flutter test
