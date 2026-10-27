@@ -11,33 +11,33 @@ dependencies:
     sdk: flutter
 
   # State management
-  flutter_riverpod: ^2.6.1
-  riverpod_annotation: ^2.6.1
+  flutter_riverpod: ^3.4.3
+  riverpod_annotation: ^4.0.7
 
   # Navigation
   go_router: ^14.8.1
 
   # Local storage
-  shared_preferences: ^2.3.4
-  path_provider: ^2.1.5
+  shared_preferences: ^2.5.6
+  path_provider: ^2.1.6
 
   # Charts & visualizations
   fl_chart: ^0.70.2
 
   # Formatting & utilities
-  intl: ^0.20.2
+  intl: ^0.20.3
   collection: ^1.19.1
   equatable: ^2.0.7
-  freezed_annotation: ^2.4.4
-  json_annotation: ^4.9.0
+  freezed_annotation: ^3.1.0
+  json_annotation: ^4.12.0
 
   # UI
   cupertino_icons: ^1.0.8
   flutter_animate: ^4.5.2
 
   # External links
-  url_launcher: ^6.3.1
-  flutter_rust_bridge: 2.12.0
+  url_launcher: ^6.3.3
+  flutter_rust_bridge: 2.13.0
   rust_lib_sc_synthesis:
     path: rust_builder
 
@@ -45,10 +45,10 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^6.0.0
-  build_runner: ^2.4.14
-  freezed: ^2.5.7
-  json_serializable: ^6.9.4
-  riverpod_generator: ^2.6.3
+  build_runner: ^2.16.2
+  freezed: ^4.0.3
+  json_serializable: ^6.15.2
+  riverpod_generator: ^4.0.9
   integration_test:
     sdk: flutter
   flutter_launcher_icons: ^0.14.3
